@@ -814,7 +814,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 490884, guid: 0c8335387c6534973b3b8dca1605ac6e, type: 2}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 3390886, guid: 0c8335387c6534973b3b8dca1605ac6e, type: 2}
       propertyPath: m_Mesh
@@ -993,7 +993,7 @@ MonoBehaviour:
   lockY: 0
   lockZoom: 0
   xOffset: 0
-  yOffset: 1
+  yOffset: .300000012
   zOffset: -20
 --- !u!81 &262862262
 AudioListener:
@@ -1187,7 +1187,7 @@ Transform:
   m_Children:
   - {fileID: 1233213057}
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 17
 --- !u!61 &335708222
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1773,7 +1773,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 407120, guid: ffeb0f8a2a81f49148c86de162b77ee4, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11407120, guid: ffeb0f8a2a81f49148c86de162b77ee4, type: 2}
       propertyPath: spawnP1
@@ -2421,7 +2421,7 @@ ParticleSystemRenderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 5f440f399d93e4955a8225093f5558a4, type: 2}
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -4762,7 +4762,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 485268, guid: 5bf98c16b2a7f4e21b64f288ee9aeaf8, type: 2}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bf98c16b2a7f4e21b64f288ee9aeaf8, type: 2}
@@ -6717,7 +6717,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 470300, guid: 0cb6fc964c45e401c93e16bfa13e4fdb, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 11470300, guid: 0cb6fc964c45e401c93e16bfa13e4fdb, type: 2}
       propertyPath: cameraTarget
@@ -6800,7 +6800,7 @@ Transform:
   m_Children:
   - {fileID: 487307398}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
 --- !u!1 &1713497999
 GameObject:
   m_ObjectHideFlags: 0
@@ -7092,7 +7092,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22454866, guid: 934dad72b226844daa5d40edf607ed8c, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 22454866, guid: 934dad72b226844daa5d40edf607ed8c, type: 2}
       propertyPath: m_AnchoredPosition.x

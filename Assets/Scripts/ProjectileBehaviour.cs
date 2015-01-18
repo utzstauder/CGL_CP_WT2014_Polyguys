@@ -27,7 +27,9 @@ public class ProjectileBehaviour : MonoBehaviour {
 	public int currentVertices;
 
 	[SerializeField]
-	private Light light;
+	private Light light1;
+	[SerializeField]
+	private Light light2;
 	[SerializeField]
 	private float maxIntensity;
 	[SerializeField]
@@ -61,9 +63,13 @@ public class ProjectileBehaviour : MonoBehaviour {
 		if (source != null && target != null){
 			progression = 1f - (target.transform.position - this.transform.position).magnitude/(target.transform.position - source.transform.position).magnitude;
 //			Debug.Log (progression);
-			if (progression <= .5f)
-				light.intensity = maxIntensity * progression;
-			else light.intensity = maxRange * (1f-progression);
+			if (progression <= .5f){
+				light1.intensity = maxIntensity * progression;
+				light2.intensity = maxIntensity * progression;
+			}else{
+				light1.intensity = maxRange * (1f-progression);
+				light2.intensity = maxRange * (1f-progression);
+			}
 		}
 	}
 
@@ -83,7 +89,8 @@ public class ProjectileBehaviour : MonoBehaviour {
 		particleSystem.startSize *= targetVertices*targetVertices;
 		particleSystem.startColor = color;
 
-		light.color = color;
+		light1.color = color;
+		light2.color = color;
 
 		currentVertices = targetVertices;
 	}

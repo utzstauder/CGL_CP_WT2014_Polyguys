@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Keyhole : MonoBehaviour {
 
-	[HideInInspector]
 	public bool trigger;
 
 	// Use this for initialization

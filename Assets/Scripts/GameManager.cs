@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour {
 		spawnPoints = new Vector3[2]{spawnP1.position, spawnP2.position};
 
 		if (enableTimer) timer = timerObject.GetComponent<timerScript>();
+
+		startObject.GetComponent<Text>().text = "Welcome to Level " + (Application.loadedLevel+1) + "\nSPACE = start\nESC = quit";
 		startObject.SetActive(true);
 	}
 	
@@ -51,6 +53,12 @@ public class GameManager : MonoBehaviour {
 
 		}else if (state == State.end){
 			if (Input.GetKeyDown(KeyCode.Space)) Application.LoadLevel(Application.loadedLevel);
+			if (Input.GetKeyDown(KeyCode.Return)){
+				int levelToLoad;
+				if (Application.loadedLevel == Application.levelCount-1) levelToLoad = 0;
+				else levelToLoad = Application.loadedLevel + 1;
+				Application.LoadLevel(levelToLoad);
+			} 
 		}
 	}
 

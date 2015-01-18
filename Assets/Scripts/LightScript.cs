@@ -2,9 +2,15 @@
 using System.Collections;
 
 public class LightScript : MonoBehaviour {
-
-
+	
 	private Light light;
+
+	[SerializeField]
+	private float baseIntensity;
+	[SerializeField]
+	private float wiggleSpeed;
+	[SerializeField]
+	private float wiggleAmount;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +19,6 @@ public class LightScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		light.intensity = 1.5f + Mathf.Sin(Time.time * 2);
+		light.intensity = baseIntensity + wiggleAmount * Mathf.Sin(Time.time * wiggleSpeed);
 	}
 }

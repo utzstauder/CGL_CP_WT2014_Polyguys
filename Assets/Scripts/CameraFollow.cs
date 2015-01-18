@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour {
 	private Camera camera;
 
 	// Link to target object
-	public Transform cameraTarget;
+	private Vector3 cameraTarget;
 
 	[Range(0,10.0f)]
 	public float minSize;
@@ -40,11 +40,12 @@ public class CameraFollow : MonoBehaviour {
 	void Start () {
 		gm = GameObject.Find ("_GM").GetComponent<GameManager>();
 		camera = GetComponent<Camera>();
+		cameraTarget = Vector3.zero;
 	}
 
 	void LateUpdate () {
 		if (gm != null && gm.players[1] != null && gm.players[0] != null){
-			cameraTarget.position = (gm.players[1].transform.position + gm.players[0].transform.position)/2;
+			cameraTarget = (gm.players[1].transform.position + gm.players[0].transform.position)/2;
 			playerDistance = Vector3.Distance(gm.players[1].transform.position, gm.players[0].transform.position);
 		}
 
@@ -52,7 +53,7 @@ public class CameraFollow : MonoBehaviour {
 		float newY = 0;
 		if (lockX) newX = transform.position.x;
 		else {
-			newX = cameraTarget.position.x;
+			newX = cameraTarget.x;
 			if (limitX){
 				if (newX < xMin) newX = xMin;
 				else if (newX > xMax) newX = xMax;
@@ -60,7 +61,7 @@ public class CameraFollow : MonoBehaviour {
 		}
 		if (lockY) newY = transform.position.y;
 		else {
-			newY = cameraTarget.position.y;
+			newY = cameraTarget.y;
 			if (limitY){
 				if (newY < yMin) newY = yMin;
 				else if (newY > yMax) newY = yMax;

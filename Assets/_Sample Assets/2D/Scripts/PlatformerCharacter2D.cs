@@ -27,8 +27,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 	[SerializeField]
 	private float onTopThreshold = 0.1f;
 
-	Animator anim;										// Reference to the player's animator component.
-	SpriteRenderer spriteRenderer;						// Reference to the player's sprite animator component.
+//	SpriteRenderer spriteRenderer;						// Reference to the player's sprite renderer component.
 
 	[SerializeField]
 	private float respawnTime;
@@ -40,7 +39,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	private Light[] playerLights;
 
-	private Vector3[] playerColor = {new Vector3(0.66f,0.66f,1.0f), new Vector3(1.0f,0.66f,0.66f)};
+	private Vector3[] playerColor = {new Vector3(1f,1f,.5f), new Vector3(1f,0.33f,0.33f)};
 
 	private AudioSource audioSource;
 	private AudioClip[] presetAudioClips;
@@ -91,6 +90,15 @@ public class PlatformerCharacter2D : MonoBehaviour
 	public GameObject particles7;
 	public GameObject particles8;
 
+	public Transform mesh3;
+	public Transform mesh4;
+	public Transform mesh5;
+	public Transform mesh6;
+	public Transform mesh7;
+	public Transform mesh8;
+
+	private Transform[] meshes;
+
 	[SerializeField]
 	private respawnParticleEffect deathEffect;
 	[SerializeField]
@@ -101,8 +109,7 @@ public class PlatformerCharacter2D : MonoBehaviour
     void Awake()
 	{
 		// Setting up references.
-		anim = GetComponent<Animator>();
-		spriteRenderer = GetComponent<SpriteRenderer>();
+//		spriteRenderer = GetComponent<SpriteRenderer>();
 		playerLights = GetComponentsInChildren<Light>();
 		audioSource = GetComponent<AudioSource>();
 
@@ -112,6 +119,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 		// Getting all particle emitters
 		particleObject = new GameObject[]{particles3, particles4, particles5, particles6, particles7, particles8};
+
+		// Getting all meshes
+		meshes = new Transform[6]{mesh3, mesh4, mesh5, mesh6, mesh7, mesh8};
 
 		// Setting the default vertex count
 		currentVertices = minVertices;
@@ -166,36 +176,12 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		// The player is grounded if a circlecast to the groundcheck position hits anything designated as ground
-		//grounded = Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround);
-		/*if (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround)
-		    && otherPlayerOnTop) grounded = false;
-		else if (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround)
-		         || Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer) && otherPlayer.GetComponent<PlatformerCharacter2D>().grounded) grounded = true;
-		    else grounded = false;*/
-	
 		otherPlayerOnTop = (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer)
 		                    && (otherPlayer.transform.position.y - onTopThreshold > this.transform.position.y));
 
 		if (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround)) grounded = true;
 		else grounded = ((Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer) && otherPlayer.GetComponent<PlatformerCharacter2D>().grounded) && otherPlayer.GetComponent<PlatformerCharacter2D>().currentVertices != 3)
 				&& ((rigidbody2D.velocity.y) < 0.2f);
-
-
-
-		/*if (playerID == 1){
-			Debug.Log ("Player1 grounded = (" + Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround) + " || (" + Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer) + " && " + otherPlayer.GetComponent<PlatformerCharacter2D>().grounded + " && " + otherPlayer.GetComponent<PlatformerCharacter2D>().currentVertices != 3
-			           + ")) && " + ((rigidbody2D.velocity.y) < 0.2f) + " = " + grounded);
-		}*/
-
-		/*Debug.Log (this + ":otherPlayerGrounded = " + otherPlayerGrounded);
-		Debug.Log (this + ":otherPlayerOnTop = " + otherPlayerOnTop);
-		Debug.Log (this + ":grounded = " + grounded);*/
-
-		anim.SetBool("Ground", grounded);
-
-		// Set the vertical animation
-		anim.SetFloat("vSpeed", rigidbody2D.velocity.y);
 	}
 
 
@@ -205,9 +191,6 @@ public class PlatformerCharacter2D : MonoBehaviour
 			//only control the player if grounded or airControl is turned on
 			if(grounded || aircontrol)
 			{
-				// The Speed animator parameter is set to the absolute value of the horizontal input.
-				anim.SetFloat("Speed", Mathf.Abs(move));
-
 				// Move the character
 				rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
 			}
@@ -215,7 +198,6 @@ public class PlatformerCharacter2D : MonoBehaviour
 	        // If the player should jump...
 	        if (grounded && !otherPlayerOnTop && jump) {
 	            // Add a vertical force to the player.
-	            anim.SetBool("Ground", false);
 	            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
 	        }
 		}
@@ -264,13 +246,26 @@ public class PlatformerCharacter2D : MonoBehaviour
 		}
 	}
 
+	private void ActivateMesh(int vertices){
+		if (vertices >= 3 && vertices <= 8)
+		meshes[vertices-3].gameObject.SetActive(true);
+	}
+
+	private void DeactivateAllMeshes(){
+		for (int i = 0; i < meshes.Length; i++){
+			meshes[i].gameObject.SetActive(false);
+		}
+	}
+
 	public void ChangeShape(int targetVertices){
 
 		// Evaluate parameter
 		if (targetVertices > maxVertices) targetVertices = minVertices;
 
 		// Update all polygon specific variables
-		spriteRenderer.sprite = presetSprites[targetVertices-3];
+//		spriteRenderer.sprite = presetSprites[targetVertices-3];
+		DeactivateAllMeshes();
+		ActivateMesh(targetVertices);
 		rigidbody2D.mass = presetMass[targetVertices-3];
 		groundedRadius = presetGroundedRadius[targetVertices-3];
 		jumpForce = presetJumpForce[targetVertices-3];
@@ -310,7 +305,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 	}
 	
 	public void ChangeColor(Vector3 color){
-		spriteRenderer.color = new Color(color.x, color.y, color.z, 1.0f);
+//		spriteRenderer.color = new Color(color.x, color.y, color.z, 1.0f);
 
 		for (int i = 0; i < playerLights.Length; i++)
 			playerLights[i].color = new Color(color.x, color.y, color.z, 1.0f);
@@ -392,7 +387,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 	private IEnumerator DieAndRespawn(GameObject killObject){
 		// TODO: die and move to respawn
 		alive = false;
-		spriteRenderer.enabled = false;
+//		spriteRenderer.enabled = false;
+		DeactivateAllMeshes();
 		this.rigidbody2D.isKinematic = true;
 		particleObject[currentVertices-3].SetActive(false);
 		DeactivateCollider();
@@ -418,7 +414,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 		}
 
 		deathParticles.GetComponent<autoDestroy>().triggerDestroy(deathParticles.GetStartLifetime());
-		spriteRenderer.enabled = true;
+//		spriteRenderer.enabled = true;
+		ActivateMesh(currentVertices);
 		particleObject[currentVertices-3].SetActive(true);
 		this.rigidbody2D.isKinematic = false;
 		ActivateCollider();

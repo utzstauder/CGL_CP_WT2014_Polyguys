@@ -10,4 +10,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/levels/lvl_001.unity
   - enabled: 1
+    path: Assets/Scenes/levels/lvl_000_tutorial.unity
+  - enabled: 1
     path: Assets/Scenes/levels/lvl_001.unity
