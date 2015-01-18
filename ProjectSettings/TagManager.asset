@@ -9,6 +9,9 @@ TagManager:
   - Fire
   - Spawn Point
   - Projectile
+  - Impenetrable
+  - Deadly
+  - 
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -24,7 +27,7 @@ TagManager:
   User Layer 11: Player1
   User Layer 12: Player2
   User Layer 13: NoGroundWallClip
-  User Layer 14: 
+  User Layer 14: Antimatter
   User Layer 15: 
   User Layer 16: 
   User Layer 17: 

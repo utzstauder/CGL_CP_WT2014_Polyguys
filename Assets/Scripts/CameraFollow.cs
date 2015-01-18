@@ -17,8 +17,10 @@ public class CameraFollow : MonoBehaviour {
 	[Range(10.0f, 30.0f)]
 	public float maxSize;
 
+	public bool limitX;
 	public float xMin;
 	public float xMax;
+	public bool limitY;
 	public float yMin;
 	public float yMax;
 
@@ -51,14 +53,18 @@ public class CameraFollow : MonoBehaviour {
 		if (lockX) newX = transform.position.x;
 		else {
 			newX = cameraTarget.position.x;
-			if (newX < xMin) newX = xMin;
-			else if (newX > xMax) newX = xMax;
+			if (limitX){
+				if (newX < xMin) newX = xMin;
+				else if (newX > xMax) newX = xMax;
+			}
 		}
 		if (lockY) newY = transform.position.y;
 		else {
 			newY = cameraTarget.position.y;
-			if (newY < yMin) newY = yMin;
-			else if (newY > yMax) newY = yMax;
+			if (limitY){
+				if (newY < yMin) newY = yMin;
+				else if (newY > yMax) newY = yMax;
+			}
 		}
 
 		// move to target

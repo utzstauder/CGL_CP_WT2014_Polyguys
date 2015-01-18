@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour {
 	public State state;
 
 	public bool playMusic;
+	public bool enableTimer;
 
 	public GameObject playerPrefab;
 
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour {
 		players = new GameObject[2];
 		spawnPoints = new Vector3[2]{spawnP1.position, spawnP2.position};
 
-		timer = timerObject.GetComponent<timerScript>();
+		if (enableTimer) timer = timerObject.GetComponent<timerScript>();
 		startObject.SetActive(true);
 	}
 	
@@ -43,7 +44,8 @@ public class GameManager : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Space)) StartGame ();
 		}
 		else if (state == State.playing){
-			if (goal.GetComponent<exitTrigger>().playersInTrigger >= 2) End ();
+			if (goal) if (goal.GetComponent<exitTrigger>().playersInTrigger >= 2) End ();
+			if (Input.GetKeyDown(KeyCode.Space)) Application.LoadLevel(Application.loadedLevel);
 		}
 		else if (state == State.paused){
 
@@ -69,7 +71,7 @@ public class GameManager : MonoBehaviour {
 		players[1].GetComponent<PlatformerCharacter2D>().otherPlayer = players[0];
 
 		// Start the timer
-		timerObject.SetActive(true);
+		if (enableTimer) timerObject.SetActive(true);
 
 		if (playMusic) GetComponent<SoundManager>().StartMusic();
 		state = State.playing;
@@ -77,7 +79,7 @@ public class GameManager : MonoBehaviour {
 
 	void End(){
 		state = State.end;
-		timer.StopTimer();
+		if (enableTimer) timer.StopTimer();
 		Destroy (players[0]);
 		Destroy (players[1]);
 	}

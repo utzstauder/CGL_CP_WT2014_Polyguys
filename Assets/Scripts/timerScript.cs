@@ -32,7 +32,7 @@ public class timerScript : MonoBehaviour {
 	public void StopTimer(){
 		//Debug.Log ("Stop!");
 		running = false;
-		string finalText = "Conratulations!\n Your time was " + text.text + "\n SPACE = restart level\n ESC = quit";
+		string finalText = "Congratulations!\n Your time was " + text.text + "\n SPACE = restart level\n ESC = quit";
 		text.text = finalText;
 		text.transform.localPosition = new Vector2(0,0);
 	}

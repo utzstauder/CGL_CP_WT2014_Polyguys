@@ -1,11 +1,16 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlatformerCharacter2D : MonoBehaviour 
 {
+	#region variables
 	[SerializeField] float maxSpeed = 8f;				// The fastest the player can travel in the x axis.
 	float jumpForce;									// Amount of force added when the player jumps.	
 
 	public bool aircontrol;								// Does the player move in the air?
+	[Range(0,3)]
+	public int airJumps;
+	private int airJumpsTmp;
 
 	[SerializeField] LayerMask whatIsGround;			// A mask determining what is ground to the character
 	[SerializeField] LayerMask whatIsOtherPlayer;
@@ -19,9 +24,15 @@ public class PlatformerCharacter2D : MonoBehaviour
 	bool grounded = false;								// Whether or not the player is grounded.
 	bool otherPlayerGrounded = false;
 	bool otherPlayerOnTop = false;
+	[SerializeField]
+	private float onTopThreshold = 0.1f;
+
 	Animator anim;										// Reference to the player's animator component.
 	SpriteRenderer spriteRenderer;						// Reference to the player's sprite animator component.
-	
+
+	[SerializeField]
+	private float respawnTime;
+	private bool alive;
 
 	//---Player variables
 
@@ -53,9 +64,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 									3.63f,
 									4.83f};
 	
-	private float[] presetGroundedRadius = { 	0.45f,
-												0.6f,
-												0.8f,
+	private float[] presetGroundedRadius = { 	0.5f,
+												0.75f,
+												0.9f,
 												1.1f,
 												1.25f,
 												1.4f
@@ -79,6 +90,11 @@ public class PlatformerCharacter2D : MonoBehaviour
 	public GameObject particles6;
 	public GameObject particles7;
 	public GameObject particles8;
+
+	[SerializeField]
+	private respawnParticleEffect deathEffect;
+	[SerializeField]
+	private ParticleSystem particleEffect;
 		
 	//---Polygon variables
 
@@ -119,6 +135,10 @@ public class PlatformerCharacter2D : MonoBehaviour
 		};
 	}
 
+	#endregion
+
+	#region methods/functions
+
 	public void Init(){
 		// Initiate the player shape
 		ChangeShape(minVertices);
@@ -135,10 +155,13 @@ public class PlatformerCharacter2D : MonoBehaviour
 			break;
 		default: break;
 		}
+		this.gameObject.name = "Player"+playerID;
+
+		alive = true;
 	}
 
 	void Update(){
-
+		// Moving platform logic
 	}
 
 	void FixedUpdate()
@@ -150,13 +173,24 @@ public class PlatformerCharacter2D : MonoBehaviour
 		else if (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround)
 		         || Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer) && otherPlayer.GetComponent<PlatformerCharacter2D>().grounded) grounded = true;
 		    else grounded = false;*/
+	
 		otherPlayerOnTop = (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer)
-		                    && (otherPlayer.transform.position.y > this.transform.position.y));
+		                    && (otherPlayer.transform.position.y - onTopThreshold > this.transform.position.y));
 
-		grounded = Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround)
-			    || ((Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer) && otherPlayer.GetComponent<PlatformerCharacter2D>().grounded))
-				&& !otherPlayerOnTop
-				&& (Mathf.Abs(rigidbody2D.velocity.y) < 0.1f);
+		if (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround)) grounded = true;
+		else grounded = ((Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer) && otherPlayer.GetComponent<PlatformerCharacter2D>().grounded) && otherPlayer.GetComponent<PlatformerCharacter2D>().currentVertices != 3)
+				&& ((rigidbody2D.velocity.y) < 0.2f);
+
+
+
+		/*if (playerID == 1){
+			Debug.Log ("Player1 grounded = (" + Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround) + " || (" + Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer) + " && " + otherPlayer.GetComponent<PlatformerCharacter2D>().grounded + " && " + otherPlayer.GetComponent<PlatformerCharacter2D>().currentVertices != 3
+			           + ")) && " + ((rigidbody2D.velocity.y) < 0.2f) + " = " + grounded);
+		}*/
+
+		/*Debug.Log (this + ":otherPlayerGrounded = " + otherPlayerGrounded);
+		Debug.Log (this + ":otherPlayerOnTop = " + otherPlayerOnTop);
+		Debug.Log (this + ":grounded = " + grounded);*/
 
 		anim.SetBool("Ground", grounded);
 
@@ -167,27 +201,28 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	public void Move(float move, bool jump)
 	{
+		if (alive){
+			//only control the player if grounded or airControl is turned on
+			if(grounded || aircontrol)
+			{
+				// The Speed animator parameter is set to the absolute value of the horizontal input.
+				anim.SetFloat("Speed", Mathf.Abs(move));
 
-		//only control the player if grounded or airControl is turned on
-		if(grounded || aircontrol)
-		{
-			// The Speed animator parameter is set to the absolute value of the horizontal input.
-			anim.SetFloat("Speed", Mathf.Abs(move));
+				// Move the character
+				rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+			}
 
-			// Move the character
-			rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+	        // If the player should jump...
+	        if (grounded && !otherPlayerOnTop && jump) {
+	            // Add a vertical force to the player.
+	            anim.SetBool("Ground", false);
+	            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+	        }
 		}
-
-        // If the player should jump...
-        if (grounded && jump) {
-            // Add a vertical force to the player.
-            anim.SetBool("Ground", false);
-            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
-        }
 	}
 
 	public void Shoot(){
-		if (currentVertices > 3 && otherPlayer != null){
+		if (currentVertices > 3 && otherPlayer != null && alive && otherPlayer.GetComponent<PlatformerCharacter2D>().alive){
 			//Debug.Log ("Shoot!");
 			Transform projectile = null;
 
@@ -195,7 +230,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 			projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity) as Transform;
 
 			// set the shape of the projectile
-			projectile.GetComponent<ProjectileBehaviour>().SetVertices(currentVertices);
+			projectile.GetComponent<ProjectileBehaviour>().Init(currentVertices, new Color(playerColor[playerID-1].x, playerColor[playerID-1].y, playerColor[playerID-1].z));
 
 			// set source, target and direction
 			projectile.GetComponent<ProjectileBehaviour>().source = this.gameObject;
@@ -204,7 +239,31 @@ public class PlatformerCharacter2D : MonoBehaviour
 			ChangeShape (currentVertices-1);
 		} //else Debug.Log (currentVertices);
 	}
-	
+
+	private void ActivateCollider(){
+		switch (currentVertices){
+		case 3: polygonCollider2D[0].enabled = true; break;
+		case 4: boxCollider2D.enabled = true; break;
+		case 5: polygonCollider2D[1].enabled = true; break;
+		case 6: polygonCollider2D[2].enabled = true; break;
+		case 7: polygonCollider2D[3].enabled = true; break;
+		case 8: polygonCollider2D[4].enabled = true; break;
+		default: break;
+		}
+	}
+
+	private void DeactivateCollider(){
+		switch (currentVertices){
+		case 3: polygonCollider2D[0].enabled = false; break;
+		case 4: boxCollider2D.enabled = false; break;
+		case 5: polygonCollider2D[1].enabled = false; break;
+		case 6: polygonCollider2D[2].enabled = false; break;
+		case 7: polygonCollider2D[3].enabled = false; break;
+		case 8: polygonCollider2D[4].enabled = false; break;
+		default: break;
+		}
+	}
+
 	public void ChangeShape(int targetVertices){
 
 		// Evaluate parameter
@@ -265,7 +324,41 @@ public class PlatformerCharacter2D : MonoBehaviour
 		gameObject.layer = LayerMask.NameToLayer(layerName);
 	}
 
-	void OnCollisionEnter2D(Collision2D other){
+	#endregion
+
+	#region functions
+	
+	// returns the nearest transform tagges as "Spawn Point"
+	private Vector3 nearestSpawnPoint(){
+		GameObject[] respawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
+		Transform returnValue = respawnPoints[0].transform;
+		foreach (GameObject spawnPoint in respawnPoints){
+			if (spawnPoint.GetComponent<checkpoint>().Activated() && ((spawnPoint.transform.position - this.transform.position).magnitude < (returnValue.position - this.transform.position).magnitude) ){
+				returnValue = spawnPoint.transform;
+			}
+		}
+		return returnValue.position;
+	}
+
+	// returns the players color
+	private Color GetPlayerColor(){
+		return new Color(playerColor[playerID-1].x, playerColor[playerID-1].y, playerColor[playerID-1].z);
+	}
+	
+	#endregion
+
+	#region debug
+
+	void OnDrawGizmos(){
+		Gizmos.color = new Color(playerColor[playerID-1].x, playerColor[playerID-1].y, playerColor[playerID-1].z);
+		Gizmos.DrawWireSphere(this.transform.position,groundedRadius);		
+	}
+
+	#endregion
+
+	#region collisions
+
+	void OnCollisionStay2D(Collision2D other){
 		if (other.gameObject.tag == "Player"){
 			if (other.transform.position.y > this.transform.position.y) otherPlayerOnTop = true;
 			if (other.gameObject.GetComponent<PlatformerCharacter2D>().grounded) otherPlayerGrounded = true;
@@ -279,4 +372,59 @@ public class PlatformerCharacter2D : MonoBehaviour
 			otherPlayerOnTop = false;
 		}
 	}
+
+	#endregion
+
+	#region triggers
+
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.gameObject.tag == "Deadly" && alive){
+//			Debug.Log("Contact with killzone");
+			StartCoroutine(DieAndRespawn(other.gameObject));
+		}
+	}
+
+	#endregion
+
+	#region coroutines
+
+	// TODO: fix!
+	private IEnumerator DieAndRespawn(GameObject killObject){
+		// TODO: die and move to respawn
+		alive = false;
+		spriteRenderer.enabled = false;
+		this.rigidbody2D.isKinematic = true;
+		particleObject[currentVertices-3].SetActive(false);
+		DeactivateCollider();
+
+		ParticleSystem littleExplosion = Instantiate(particleEffect, this.transform.position, Quaternion.identity) as ParticleSystem;
+		littleExplosion.startColor = GetPlayerColor();
+		littleExplosion.GetComponent<autoDestroy>().triggerDestroy(littleExplosion.startLifetime);
+
+		respawnParticleEffect deathParticles = Instantiate(deathEffect, this.transform.position, this.transform.localRotation) as respawnParticleEffect;
+		deathParticles.Init(currentVertices, GetPlayerColor());
+
+		Vector3 deathPosition = this.transform.position;
+		Vector3 respawnPoint = nearestSpawnPoint();
+
+		for (float t = 0; t <= respawnTime; t += Time.deltaTime){
+			this.transform.position = Vector3.Lerp (deathPosition, respawnPoint, t/respawnTime);
+			deathParticles.transform.position = this.transform.position;
+				deathParticles.Scale((.5f-t/respawnTime)*2f);
+			deathParticles.Rotate(t/respawnTime);
+			this.transform.Rotate(Vector3.forward * Mathf.PI * deathParticles.GetRotationCycles() * t/respawnTime);
+//			Debug.Log(t + " -> " + this.transform.position);
+			yield return new WaitForSeconds(Time.deltaTime);
+		}
+
+		deathParticles.GetComponent<autoDestroy>().triggerDestroy(deathParticles.GetStartLifetime());
+		spriteRenderer.enabled = true;
+		particleObject[currentVertices-3].SetActive(true);
+		this.rigidbody2D.isKinematic = false;
+		ActivateCollider();
+		alive = true;
+	}
+
+	#endregion
+	 
 }

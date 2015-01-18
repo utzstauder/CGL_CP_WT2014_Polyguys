@@ -2,11 +2,13 @@
 using System.Collections;
 
 public class ProjectileBehaviour : MonoBehaviour {
-
+	[HideInInspector]
 	public GameObject source;
+	[HideInInspector]
 	public GameObject target;
 
 	private Vector3 direction = Vector3.zero;
+	private float progression;
 
 	[Range(1.0f,100.0f)]
 	public float speed = 25.0f;
@@ -14,9 +16,22 @@ public class ProjectileBehaviour : MonoBehaviour {
 	private Sprite[] presetSprites;
 	private SpriteRenderer spriteRenderer; 
 
+	[SerializeField]
+	private ParticleSystem projectileParticleSystem;
+	[SerializeField]
+	private ParticleSystem particleEffect;
+
 	private ParticleSystem particleSystem;
 
+	[HideInInspector]
 	public int currentVertices;
+
+	[SerializeField]
+	private Light light;
+	[SerializeField]
+	private float maxIntensity;
+	[SerializeField]
+	private float maxRange;
 
 	// Use this for initialization
 	void Awake () {
@@ -34,7 +49,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 			Resources.Load("Sprites/polygons/8_octagon", typeof(Sprite)) as Sprite
 		};
 
-		particleSystem = GetComponent<ParticleSystem>();
+		//particleSystem = GetComponent<ParticleSystem>();
 	}
 
 	void Start(){
@@ -43,19 +58,33 @@ public class ProjectileBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update(){
-
+		if (source != null && target != null){
+			progression = 1f - (target.transform.position - this.transform.position).magnitude/(target.transform.position - source.transform.position).magnitude;
+//			Debug.Log (progression);
+			if (progression <= .5f)
+				light.intensity = maxIntensity * progression;
+			else light.intensity = maxRange * (1f-progression);
+		}
 	}
 
 	void FixedUpdate(){
 		if (source != null && target != null){
 			direction = (target.transform.position - transform.position).normalized;
+			progression = 1f - (target.transform.position - this.transform.position).magnitude/(target.transform.position - source.transform.position).magnitude;
 		}
 		rigidbody2D.velocity = direction * speed * 10.0f * Time.deltaTime;
+		particleSystem.transform.position = this.transform.position;
 	}
 
-	public void SetVertices(int targetVertices){
+	public void Init(int targetVertices, Color color){
 		spriteRenderer.sprite = presetSprites[targetVertices-3];
+
+		particleSystem = Instantiate(projectileParticleSystem, this.transform.position, Quaternion.identity) as ParticleSystem;
 		particleSystem.startSize *= targetVertices*targetVertices;
+		particleSystem.startColor = color;
+
+		light.color = color;
+
 		currentVertices = targetVertices;
 	}
 
@@ -63,7 +92,17 @@ public class ProjectileBehaviour : MonoBehaviour {
 		if (other.gameObject == target.gameObject){
 			//Debug.Log ("Collision with " + other.gameObject);
 			other.GetComponent<PlatformerCharacter2D>().ChangeShape(other.GetComponent<PlatformerCharacter2D>().currentVertices+1);
+			particleSystem.GetComponent<autoDestroy>().triggerDestroy(particleSystem.startLifetime);
 			Destroy (this.gameObject);
+		} else if (other.gameObject.tag == "Impenetrable"){
+			GameObject tmp = source;
+			source = target;
+			target = tmp;
+			tmp = null;
+
+			ParticleSystem particleEffectObject = Instantiate(particleEffect, this.transform.position, Quaternion.identity) as ParticleSystem;
+			particleEffectObject.startColor = particleSystem.startColor;
+			particleEffectObject.GetComponent<autoDestroy>().triggerDestroy(particleEffect.startLifetime);
 		}
 	}
 }

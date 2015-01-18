@@ -2624,7 +2624,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294950911
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -2659,7 +2659,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294950911
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -2690,6 +2690,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 5
   aircontrol: 1
+  airJumps: 1
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
@@ -2698,6 +2699,8 @@ MonoBehaviour:
     m_Bits: 0
   otherPlayer: {fileID: 0}
   projectilePrefab: {fileID: 400002, guid: 609e99cb11f454b72b357018afbad268, type: 2}
+  onTopThreshold: .100000001
+  respawnTime: 1
   playerID: 0
   currentVertices: 0
   particles3: {fileID: 100016}
@@ -2706,6 +2709,8 @@ MonoBehaviour:
   particles6: {fileID: 100060}
   particles7: {fileID: 100042}
   particles8: {fileID: 100028}
+  deathEffect: {fileID: 11459538, guid: 6effccd520aed4b94b1be4a9cd9359d9, type: 2}
+  particleEffect: {fileID: 19885654, guid: 73e4cf50bf76046a2b246fc7b9fd0184, type: 2}
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
