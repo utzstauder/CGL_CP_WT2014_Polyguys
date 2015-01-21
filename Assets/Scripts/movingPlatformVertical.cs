@@ -19,6 +19,9 @@ public class movingPlatformVertical : MonoBehaviour {
 	private float speed;
 
 	[SerializeField]
+	private float timeDelay;
+
+	[SerializeField]
 	private float yMin;
 	[SerializeField]
 	private float yMax;
