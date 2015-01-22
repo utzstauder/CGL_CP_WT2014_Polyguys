@@ -52,11 +52,11 @@ public class parallaxScript : MonoBehaviour {
 		float newY;
 		float newZ;
 
-		if (scrollX) newX = this.transform.position.x + mainCamera.velocity.x * scrollFactor.x * distanceFromCamera / 10000 + offset.x;
+		if (scrollX) newX = this.transform.position.x + mainCamera.velocity.x * scrollFactor.x * 1/distanceFromCamera + offset.x;
 		else newX = this.transform.position.x;
-		if (scrollY) newY = this.transform.position.y + mainCamera.velocity.y * scrollFactor.y * distanceFromCamera / 10000 + offset.y;
+		if (scrollY) newY = this.transform.position.y + mainCamera.velocity.y * scrollFactor.y * 1/distanceFromCamera + offset.y;
 		else newY = this.transform.position.y;
-		if (scrollZ) newZ = this.transform.position.z + mainCamera.velocity.z * scrollFactor.z * distanceFromCamera / 10000 + offset.z;
+		if (scrollZ) newZ = this.transform.position.z + mainCamera.velocity.z * scrollFactor.z * 1/distanceFromCamera + offset.z;
 		else newZ = this.transform.position.z;
 
 		this.transform.position = new Vector3(newX, newY, newZ);

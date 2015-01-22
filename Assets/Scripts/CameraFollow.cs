@@ -45,7 +45,7 @@ public class CameraFollow : MonoBehaviour {
 	void Start () {
 		gm = GameObject.Find ("_GM").GetComponent<GameManager>();
 		camera = GetComponent<Camera>();
-		cameraTarget = Vector3.zero;
+		cameraTarget = (GameObject.Find("StartP1").transform.position + GameObject.Find("StartP2").transform.position)/2 + new Vector3(0,0,this.transform.position.z);
 		externalZoomFactor = 0;
 		externalOffset = Vector3.zero;
 	}

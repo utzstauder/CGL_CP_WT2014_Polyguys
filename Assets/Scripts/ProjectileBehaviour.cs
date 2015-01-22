@@ -60,17 +60,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update(){
-		if (source != null && target != null){
-			progression = 1f - (target.transform.position - this.transform.position).magnitude/(target.transform.position - source.transform.position).magnitude;
-//			Debug.Log (progression);
-			if (progression <= .5f){
-				light1.intensity = maxIntensity * progression;
-				light2.intensity = maxIntensity * progression;
-			}else{
-				light1.intensity = maxRange * (1f-progression);
-				light2.intensity = maxRange * (1f-progression);
-			}
-		}
+
 	}
 
 	void FixedUpdate(){
@@ -80,6 +70,19 @@ public class ProjectileBehaviour : MonoBehaviour {
 		}
 		rigidbody2D.velocity = direction * speed * 10.0f * Time.deltaTime;
 		particleSystem.transform.position = this.transform.position;
+
+		if (source != null && target != null){
+//			progression = 1f - (target.transform.position - this.transform.position).magnitude/(target.transform.position - source.transform.position).magnitude;
+			progression = 1f - Vector3.Distance(target.transform.position, this.transform.position) / Vector3.Distance(target.transform.position, source.transform.position);
+			//			Debug.Log (progression);
+			if (progression <= .5f){
+				light1.intensity = maxIntensity * progression;
+				light2.intensity = maxIntensity * progression;
+			}else{
+				light1.intensity = maxIntensity * (1f-progression);
+				light2.intensity = maxIntensity * (1f-progression);
+			}
+		}
 	}
 
 	public void Init(int targetVertices, Color color){
