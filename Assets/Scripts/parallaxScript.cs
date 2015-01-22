@@ -6,7 +6,9 @@ public class parallaxScript : MonoBehaviour {
 	#region private variables
 	[SerializeField]
 	private Camera mainCamera;
-	
+
+	private float distanceFromCamera;
+
 	[SerializeField]
 	private bool scrollX;
 	[SerializeField]
@@ -27,7 +29,7 @@ public class parallaxScript : MonoBehaviour {
 
 	#region initialization
 	void Awake() {
-
+		distanceFromCamera = Mathf.Abs(mainCamera.transform.position.z - this.transform.position.z);
 	}
 
 	void Start () {
@@ -50,11 +52,11 @@ public class parallaxScript : MonoBehaviour {
 		float newY;
 		float newZ;
 
-		if (scrollX) newX = this.transform.position.x + mainCamera.velocity.x * scrollFactor.x * .1f + offset.x;
+		if (scrollX) newX = this.transform.position.x + mainCamera.velocity.x * scrollFactor.x * distanceFromCamera / 10000 + offset.x;
 		else newX = this.transform.position.x;
-		if (scrollY) newY = this.transform.position.y + mainCamera.velocity.y * scrollFactor.y * .1f + offset.y;
+		if (scrollY) newY = this.transform.position.y + mainCamera.velocity.y * scrollFactor.y * distanceFromCamera / 10000 + offset.y;
 		else newY = this.transform.position.y;
-		if (scrollZ) newZ = this.transform.position.z + mainCamera.velocity.z * scrollFactor.z * .1f + offset.z;
+		if (scrollZ) newZ = this.transform.position.z + mainCamera.velocity.z * scrollFactor.z * distanceFromCamera / 10000 + offset.z;
 		else newZ = this.transform.position.z;
 
 		this.transform.position = new Vector3(newX, newY, newZ);

@@ -34,18 +34,18 @@ public class checkpoint : MonoBehaviour {
 	}
 
 	public bool Activated(){
-		return isActivated;
+		return this.isActivated;
 	}
 
 	private void setLight(){
-		if (!isStartPoint) indicatorLight.enabled = true;
+//		if (!isStartPoint) indicatorLight.enabled = true;
 
 		if (isActivated) indicatorLight.color = Color.green;
 		else indicatorLight.color = Color.red;
 	}
 
 	private void setSpriteRenderer(){
-		if (!isStartPoint) spriteRenderer.enabled = true;
+//		if (!isStartPoint) spriteRenderer.enabled = true;
 
 		if (isActivated) spriteRenderer.color = Color.green;
 		else spriteRenderer.color = Color.red;

@@ -42,7 +42,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 	private Vector3[] playerColor = {new Vector3(1f,1f,.5f), new Vector3(1f,0.33f,0.33f)};
 
 	private AudioSource audioSource;
-	private AudioClip[] presetAudioClips;
+	private AudioClip[] audioClipsChangeShape;
+	private AudioClip[] audioClipsJump;
+	private AudioClip audioClipDeath;
 	
 	//---Player variables
 
@@ -136,13 +138,23 @@ public class PlatformerCharacter2D : MonoBehaviour
 		};
 
 		// Loading the audio resources
-		presetAudioClips = new AudioClip[] { Resources.Load("Sounds/projectile_3", typeof(AudioClip)) as AudioClip,
-			Resources.Load("Sounds/projectile_4", typeof(AudioClip)) as AudioClip,
-			Resources.Load("Sounds/projectile_5", typeof(AudioClip)) as AudioClip,
-			Resources.Load("Sounds/projectile_6", typeof(AudioClip)) as AudioClip,
-			Resources.Load("Sounds/projectile_7", typeof(AudioClip)) as AudioClip,
-			Resources.Load("Sounds/projectile_8", typeof(AudioClip)) as AudioClip
+		audioClipsChangeShape = new AudioClip[] { Resources.Load("Sounds/shape_sounds_1/a5", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/shape_sounds_1/f#5", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/shape_sounds_1/d5", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/shape_sounds_1/b4", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/shape_sounds_1/g4", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/shape_sounds_1/e4", typeof(AudioClip)) as AudioClip
 		};
+
+		audioClipsJump = new AudioClip[] { Resources.Load("Sounds/jump_sounds_1/d6", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/jump_sounds_1/b5", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/jump_sounds_1/a5", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/jump_sounds_1/g5", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/jump_sounds_1/e5", typeof(AudioClip)) as AudioClip,
+			Resources.Load("Sounds/jump_sounds_1/d5", typeof(AudioClip)) as AudioClip
+		};
+
+		audioClipDeath = Resources.Load ("Sounds/death_01", typeof(AudioClip)) as AudioClip;
 	}
 
 	#endregion
@@ -199,6 +211,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 	        if (grounded && !otherPlayerOnTop && jump) {
 	            // Add a vertical force to the player.
 	            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+				// Play audio
+				audioSource.PlayOneShot(audioClipsJump[currentVertices-3],0.33f);
 	        }
 		}
 	}
@@ -288,8 +302,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 		}
 
 		// Play audio
-		if (targetVertices < currentVertices) audioSource.PlayOneShot(presetAudioClips[currentVertices-3],1.0f);
-		else audioSource.PlayOneShot(presetAudioClips[targetVertices-3],1.0f);
+		if (targetVertices < currentVertices) audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
+		else audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
 
 		// TODO: check
 		// Deactiveate all particle emitters first
@@ -326,9 +340,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 	// returns the nearest transform tagges as "Spawn Point"
 	private Vector3 nearestSpawnPoint(){
 		GameObject[] respawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
-		Transform returnValue = respawnPoints[0].transform;
+		Transform returnValue = null;
 		foreach (GameObject spawnPoint in respawnPoints){
-			if (spawnPoint.GetComponent<checkpoint>().Activated() && ((spawnPoint.transform.position - this.transform.position).magnitude < (returnValue.position - this.transform.position).magnitude) ){
+			if (spawnPoint.GetComponent<checkpoint>().Activated() && (returnValue == null || (Vector3.Distance(spawnPoint.transform.position,this.transform.position) < Vector3.Distance(returnValue.position, this.transform.position))) ){
 				returnValue = spawnPoint.transform;
 			}
 		}
@@ -392,6 +406,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 		this.rigidbody2D.isKinematic = true;
 		particleObject[currentVertices-3].SetActive(false);
 		DeactivateCollider();
+		audioSource.PlayOneShot(audioClipDeath,.66f);
 
 		ParticleSystem littleExplosion = Instantiate(particleEffect, this.transform.position, Quaternion.identity) as ParticleSystem;
 		littleExplosion.startColor = GetPlayerColor();

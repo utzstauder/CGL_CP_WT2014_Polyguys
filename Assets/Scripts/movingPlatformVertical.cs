@@ -12,14 +12,14 @@ public class movingPlatformVertical : MonoBehaviour {
 	private int numberOfTriggers;
 
 	[SerializeField]
+	private bool bothTriggersNeeded;
+
+	[SerializeField]
 	private GameObject triggerObject1;
 	[SerializeField]
 	private GameObject triggerObject2;
 	[SerializeField]
 	private float speed;
-
-	[SerializeField]
-	private float timeDelay;
 
 	[SerializeField]
 	private float yMin;
@@ -38,7 +38,8 @@ public class movingPlatformVertical : MonoBehaviour {
 		if (numberOfTriggers == 1 && triggerObject1.GetComponent<Keyhole>().trigger){
 			MovePlatform(direction);
 		} else if (numberOfTriggers == 2){
-			if (triggerObject1.GetComponent<Keyhole>().trigger || triggerObject2.GetComponent<Keyhole>().trigger){
+			if ( (bothTriggersNeeded && (triggerObject1.GetComponent<Keyhole>().trigger && triggerObject2.GetComponent<Keyhole>().trigger) )
+				|| (!bothTriggersNeeded && (triggerObject1.GetComponent<Keyhole>().trigger || triggerObject2.GetComponent<Keyhole>().trigger) ) ){
 				MovePlatform(direction);
 			} else MovePlatform(!direction);
 		} else MovePlatform(!direction);

@@ -67,7 +67,7 @@ AudioSource:
   m_GameObject: {fileID: 107118}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 5a39a538aa2ab402eade677e28486086, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 105f62f9e82fa4779a49c3c8f38e4edf, type: 3}
   m_PlayOnAwake: 0
   m_Volume: .200000003
   m_Pitch: 1
@@ -125,7 +125,7 @@ AudioSource:
   m_GameObject: {fileID: 107118}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: f483c58ae5ab24c4d88ff1f095832713, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2afb8694b185f4130ba51d63ce46d649, type: 3}
   m_PlayOnAwake: 0
   m_Volume: .200000003
   m_Pitch: 1
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  playMusic: 0
+  playMusic: 1
   enableTimer: 1
   playerPrefab: {fileID: 100004, guid: 85ecaacbc52c04db58b0aa959a6c57b6, type: 2}
   spawnP1: {fileID: 0}

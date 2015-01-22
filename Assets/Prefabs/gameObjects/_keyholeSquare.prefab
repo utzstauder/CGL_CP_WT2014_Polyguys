@@ -142,7 +142,7 @@ Rigidbody2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 168798}
-  m_Mass: 12
+  m_Mass: 4
   m_LinearDrag: 10
   m_AngularDrag: 0
   m_GravityScale: -1
@@ -160,8 +160,8 @@ BoxCollider2D:
   m_Enabled: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Size: {x: 1.28144908, y: 1.17629766}
-  m_Center: {x: .140691653, y: -7.65243244}
+  m_Size: {x: 1.28144908, y: 1.20721149}
+  m_Center: {x: .140691653, y: -7.63697958}
 --- !u!61 &6168800
 BoxCollider2D:
   m_ObjectHideFlags: 1

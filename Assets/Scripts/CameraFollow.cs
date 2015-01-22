@@ -9,8 +9,9 @@ public class CameraFollow : MonoBehaviour {
 	// Link to camera
 	private Camera camera;
 
-	// Link to target object
-	private Vector3 cameraTarget;
+	// virtual target object
+	[HideInInspector]
+	public Vector3 cameraTarget;
 
 	[Range(0,10.0f)]
 	public float minSize;
@@ -27,12 +28,16 @@ public class CameraFollow : MonoBehaviour {
 	public bool lockX;
 	public bool lockY;
 	public bool lockZoom;
+	[SerializeField]
+	private float zoomFactor;
 
-	[Range(0,10.0f)]
-	public float xOffset;
-	[Range(0,10.0f)]
-	public float yOffset;
-	public float zOffset;
+	[HideInInspector]
+	public float externalZoomFactor; 
+	[HideInInspector]
+	public Vector3 externalOffset;
+	
+	[SerializeField]
+	private Vector3 offset;
 
 	private float playerDistance;
 
@@ -41,6 +46,8 @@ public class CameraFollow : MonoBehaviour {
 		gm = GameObject.Find ("_GM").GetComponent<GameManager>();
 		camera = GetComponent<Camera>();
 		cameraTarget = Vector3.zero;
+		externalZoomFactor = 0;
+		externalOffset = Vector3.zero;
 	}
 
 	void LateUpdate () {
@@ -69,7 +76,7 @@ public class CameraFollow : MonoBehaviour {
 		}
 
 		// move to target
-		transform.position = new Vector3(newX+xOffset, newY+yOffset, zOffset);
+		transform.position = new Vector3(newX + offset.x + externalOffset.x, newY + offset.y + externalOffset.y, this.transform.position.z);
 
 
 		// zoom
@@ -79,6 +86,8 @@ public class CameraFollow : MonoBehaviour {
 			} else if (playerDistance/2 < minSize){
 				camera.orthographicSize = minSize;
 			} else camera.orthographicSize = maxSize;
+
+			camera.orthographicSize *= 1f + zoomFactor + externalZoomFactor;
 		}
 	}
 }
