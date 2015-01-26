@@ -3,31 +3,27 @@ using System.Collections;
 
 public class exitTrigger : MonoBehaviour {
 
-	private BoxCollider2D triggerArea;
-
-	public int playersInTrigger;
+	public bool player1InTrigger = false;
+	public bool player2InTrigger = false;
 
 
 	// Use this for initialization
 	void Start () {
-		triggerArea = GetComponent<BoxCollider2D>();
-		playersInTrigger = 0;
+
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void FixedUpdate () {
+		player1InTrigger = false;
+		player2InTrigger = false;
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.tag == "Player"){
-			playersInTrigger++;
+	void OnTriggerStay2D(Collider2D other){
+		if (other.gameObject.name == "Player1"){
+			player1InTrigger = true;
 		}
-	}
-
-	void OnTriggerExit2D(Collider2D other){
-		if (other.gameObject.tag == "Player"){
-			playersInTrigger--;
+		if (other.gameObject.name == "Player2"){
+			player2InTrigger = true;
 		}
 	}
 }

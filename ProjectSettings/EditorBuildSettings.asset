@@ -5,13 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/localMultiplayerAndCameraTest.unity
-  - enabled: 0
-    path: Assets/Scenes/levels/archive/lvl_intermediate_presentation.unity
+  - enabled: 1
+    path: Assets/Scenes/levels/lvl_000_mainMenu.unity
   - enabled: 1
     path: Assets/Scenes/levels/lvl_001_tutorial.unity
-  - enabled: 0
-    path: Assets/Scenes/levels/archive/lvl_intermediate_presentation.unity
   - enabled: 1
     path: Assets/Scenes/levels/lvl_002_3+4.unity

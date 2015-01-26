@@ -4,6 +4,8 @@ using System.Collections;
 public class PlatformerCharacter2D : MonoBehaviour 
 {
 	#region variables
+	public bool playerHasControl = false;				// if true, the player can control his character
+
 	[SerializeField] float maxSpeed = 8f;				// The fastest the player can travel in the x axis.
 	float jumpForce;									// Amount of force added when the player jumps.	
 
@@ -22,6 +24,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 	Transform groundCheck;								// A position marking where to check if the player is grounded.
 	float groundedRadius = .4f;							// Radius of the overlap circle to determine if grounded
 	bool grounded = false;								// Whether or not the player is grounded.
+	bool canJump = false;
 	bool otherPlayerGrounded = false;
 	bool otherPlayerOnTop = false;
 	[SerializeField]
@@ -110,6 +113,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 
     void Awake()
 	{
+		// keep players alive during scenes
+		DontDestroyOnLoad(this.gameObject);
+
 		// Setting up references.
 //		spriteRenderer = GetComponent<SpriteRenderer>();
 		playerLights = GetComponentsInChildren<Light>();
@@ -161,9 +167,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	#region methods/functions
 
-	public void Init(){
+	public void Init(int vertices){
 		// Initiate the player shape
-		ChangeShape(minVertices);
+		ChangeShape(vertices);
 		
 		// Initiate the player color and layer masks
 		ChangeColor(playerColor[playerID-1]);
@@ -182,24 +188,45 @@ public class PlatformerCharacter2D : MonoBehaviour
 		alive = true;
 	}
 
+	//TODO: implement controls here
 	void Update(){
-		// Moving platform logic
+		// jumping
+		if (alive && playerHasControl){
+			if (grounded && !otherPlayerOnTop){
+				if ((playerID == 1 && Input.GetButtonDown("p1Jump"))
+				    || (playerID == 2 && Input.GetButtonDown("p2Jump")) ){
+					// Add a vertical force to the player.
+					rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+					// Play audio
+					audioSource.PlayOneShot(audioClipsJump[currentVertices-3],0.33f);
+				} 
+			}
+
+			if ((playerID == 1 && Input.GetButtonDown("p1Shoot"))
+			    || (playerID == 2 && Input.GetButtonDown("p2Shoot")) ) Shoot();
+		}
 	}
 
 	void FixedUpdate()
 	{
+		otherPlayerGrounded = otherPlayer.GetComponent<PlatformerCharacter2D>().grounded;
+
 		otherPlayerOnTop = (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer)
 		                    && (otherPlayer.transform.position.y - onTopThreshold > this.transform.position.y));
 
-		if (Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsGround)) grounded = true;
-		else grounded = ((Physics2D.OverlapCircle(transform.position, groundedRadius, whatIsOtherPlayer) && otherPlayer.GetComponent<PlatformerCharacter2D>().grounded) && otherPlayer.GetComponent<PlatformerCharacter2D>().currentVertices != 3)
-				&& ((rigidbody2D.velocity.y) < 0.2f);
+		if (alive && playerHasControl){
+			// move the player
+			float move = 0;
+			if (playerID == 1) move = Input.GetAxis ("p1Horizontal");
+			if (playerID == 2) move = Input.GetAxis ("p2Horizontal");
+			rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+		}
+		grounded = false;
 	}
-
 
 	public void Move(float move, bool jump)
 	{
-		if (alive){
+		if (alive && playerHasControl){
 			//only control the player if grounded or airControl is turned on
 			if(grounded || aircontrol)
 			{
@@ -207,18 +234,19 @@ public class PlatformerCharacter2D : MonoBehaviour
 				rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
 			}
 
-	        // If the player should jump...
-	        if (grounded && !otherPlayerOnTop && jump) {
-	            // Add a vertical force to the player.
-	            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
-				// Play audio
-				audioSource.PlayOneShot(audioClipsJump[currentVertices-3],0.33f);
-	        }
+			//TODO: old jump
+//	        // If the player should jump...
+//	        if (grounded && !otherPlayerOnTop && jump) {
+//	            // Add a vertical force to the player.
+//	            rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+//				// Play audio
+//				audioSource.PlayOneShot(audioClipsJump[currentVertices-3],0.33f);
+//	        }
 		}
 	}
 
 	public void Shoot(){
-		if (currentVertices > 3 && otherPlayer != null && alive && otherPlayer.GetComponent<PlatformerCharacter2D>().alive){
+		if (currentVertices > 3 && otherPlayer != null && alive && otherPlayer.GetComponent<PlatformerCharacter2D>().alive && playerHasControl){
 			//Debug.Log ("Shoot!");
 			Transform projectile = null;
 
@@ -301,9 +329,11 @@ public class PlatformerCharacter2D : MonoBehaviour
 			default: break;
 		}
 
-		// Play audio
-		if (targetVertices < currentVertices) audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
-		else audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
+		// Play audio only if in playing state
+		if (playerHasControl){
+			if (targetVertices < currentVertices) audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
+			else audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
+		}
 
 		// TODO: check
 		// Deactiveate all particle emitters first
@@ -370,8 +400,14 @@ public class PlatformerCharacter2D : MonoBehaviour
 	void OnCollisionStay2D(Collision2D other){
 		if (other.gameObject.tag == "Player"){
 			if (other.transform.position.y > this.transform.position.y) otherPlayerOnTop = true;
-			if (other.gameObject.GetComponent<PlatformerCharacter2D>().grounded) otherPlayerGrounded = true;
-			else otherPlayerGrounded = false;
+		}
+
+		if (other.gameObject.layer == LayerMask.NameToLayer("Ground") || other.gameObject.layer == LayerMask.NameToLayer("NoGroundWallClip")){
+			grounded = true;
+		}
+
+		if (other.gameObject.tag == "Player"){
+			if (other.gameObject.GetComponent<PlatformerCharacter2D>().currentVertices != 3) grounded = true;
 		}
 	}
 

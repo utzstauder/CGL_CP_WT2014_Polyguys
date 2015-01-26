@@ -31,6 +31,7 @@ public class movingPlatformVertical : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		initialPosition = this.transform.position;
+
 	}
 	
 	// Update is called once per frame

@@ -27,6 +27,7 @@ public class VertexPickup : MonoBehaviour {
 		ActivateMesh(vertex);
 		particleSystem = Instantiate(particlePrefab, this.transform.position, this.transform.rotation) as ParticleSystem;
 		particleSystem.startSize *= vertex;
+		particleSystem.transform.parent = this.transform;
 	}
 	
 	// Update is called once per frame

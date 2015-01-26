@@ -28,10 +28,24 @@ public class timerScript : MonoBehaviour {
 		running = true;
 		time = 0;
 	}
-	
-	public void StopTimer(){
-		//Debug.Log ("Stop!");
+
+	public void PauseTimer(){
 		running = false;
+	}
+
+	public void ResumeTimer(){
+		running = true;
+	}
+
+	public void ResetTimer(){
+		time = 0;
+	}
+
+	public void StopTimer(){
+		running = false;
+	}
+
+	public void ShowResult(){
 		string finalText = "Congratulations!\n Your time was " + text.text + "\nENTER = next level\n SPACE = restart level\n ESC = quit";
 		text.text = finalText;
 		text.transform.localPosition = new Vector2(0,0);

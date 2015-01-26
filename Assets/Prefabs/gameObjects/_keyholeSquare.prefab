@@ -219,6 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 691407a63bcf947a588dde8372b0f11b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  keyhole: 1
+  switchObject: 0
   trigger: 0
 --- !u!114 &11468798
 MonoBehaviour:
