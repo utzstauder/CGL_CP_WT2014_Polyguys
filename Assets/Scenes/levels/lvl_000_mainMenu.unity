@@ -856,7 +856,7 @@ MonoBehaviour:
   state: 0
   playMusic: 1
   enableTimer: 0
-  playerPrefab: {fileID: 100004, guid: 85ecaacbc52c04db58b0aa959a6c57b6, type: 2}
+  playerPrefab: {fileID: 149428, guid: b128b2533bc9f4d42b94db5c0c4d7da8, type: 2}
   spawnP1: {fileID: 0}
   spawnP2: {fileID: 0}
   colorP1: {r: .520410836, g: .498039186, b: 1, a: 1}
@@ -1808,6 +1808,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11407120, guid: ffeb0f8a2a81f49148c86de162b77ee4, type: 2}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 149428, guid: b128b2533bc9f4d42b94db5c0c4d7da8, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ffeb0f8a2a81f49148c86de162b77ee4, type: 2}
   m_RootGameObject: {fileID: 709916111}

@@ -189,7 +189,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 	void Update(){
 		// jumping
 		if (alive && playerHasControl){
-			if (grounded && !otherPlayerOnTop){
+			if (grounded && !otherPlayerOnTop && rigidbody2D.velocity.y < .2f){
 				if ((playerID == 1 && Input.GetButtonDown("p1Jump"))
 				    || (playerID == 2 && Input.GetButtonDown("p2Jump")) ){
 					// Add a vertical force to the player.
@@ -465,7 +465,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 		deathParticles.GetComponent<autoDestroy>().triggerDestroy(deathParticles.GetStartLifetime());
 //		spriteRenderer.enabled = true;
 		ActivateMesh(currentVertices);
-		particleObject[currentVertices-3].SetActive(true);
+		if (enableParticles) particleObject[currentVertices-3].SetActive(true);
 		this.rigidbody2D.isKinematic = false;
 		ActivateCollider();
 		alive = true;
