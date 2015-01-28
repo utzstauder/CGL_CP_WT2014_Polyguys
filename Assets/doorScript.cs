@@ -31,6 +31,7 @@ public class doorScript : MonoBehaviour {
 	#region initialization
 	void Awake() {
 		anim = GetComponent<Animator>();
+		anim.speed = speed;
 	}
 
 	void Start () {
@@ -49,8 +50,6 @@ public class doorScript : MonoBehaviour {
 				anim.SetBool("open", true);
 			} else if (!stayOpen) anim.SetBool("open", false);
 		} else if (!stayOpen) anim.SetBool("open", false);
-
-		anim.speed = speed;
 	}
 
 	void FixedUpdate() {

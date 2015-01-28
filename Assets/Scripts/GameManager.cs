@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
 
 	public Transform spawnP1;
 	public Transform spawnP2;
+	public Color colorP1;
+	public Color colorP2;
 
 	[HideInInspector]
 	public GameObject[] players;
@@ -217,11 +219,11 @@ public class GameManager : MonoBehaviour {
 		// Spawn players 
 		players[0] = Instantiate(playerPrefab, spawnPoints[0], Quaternion.identity) as GameObject;
 		players[0].GetComponent<PlatformerCharacter2D>().playerID = 1;
-		players[0].GetComponent<PlatformerCharacter2D>().Init(verticesP1);
+		players[0].GetComponent<PlatformerCharacter2D>().Init(verticesP1, colorP1);
 		
 		players[1] = Instantiate(playerPrefab, spawnPoints[1], Quaternion.identity) as GameObject;
 		players[1].GetComponent<PlatformerCharacter2D>().playerID = 2;
-		players[1].GetComponent<PlatformerCharacter2D>().Init(verticesP2);
+		players[1].GetComponent<PlatformerCharacter2D>().Init(verticesP2, colorP2);
 		
 		players[0].GetComponent<PlatformerCharacter2D>().otherPlayer = players[1];
 		players[1].GetComponent<PlatformerCharacter2D>().otherPlayer = players[0];

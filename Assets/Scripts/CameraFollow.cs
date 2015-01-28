@@ -29,10 +29,10 @@ public class CameraFollow : MonoBehaviour {
 	public bool lockY;
 	public bool lockZoom;
 	[SerializeField]
-	private float zoomFactor;
+	private float zoomFactor = 0;
 
 	[HideInInspector]
-	public float externalZoomFactor; 
+	public float externalZoomFactor = 0; 
 	[HideInInspector]
 	public Vector3 externalOffset;
 	

@@ -90,10 +90,10 @@ public class ProjectileBehaviour : MonoBehaviour {
 
 		particleSystem = Instantiate(projectileParticleSystem, this.transform.position, Quaternion.identity) as ParticleSystem;
 		particleSystem.startSize *= targetVertices*targetVertices;
-		particleSystem.startColor = color;
-
-		light1.color = color;
-		light2.color = color;
+//		particleSystem.startColor = color * Color.white;
+//
+//		light1.color = color;
+//		light2.color = color;
 
 		currentVertices = targetVertices;
 	}

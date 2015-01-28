@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400000}
   - 108: {fileID: 10800000}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: playerLightBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,7 +25,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400002}
   - 108: {fileID: 10800002}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: playerLightForeground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - 60: {fileID: 6000002}
   - 60: {fileID: 6000000}
   - 82: {fileID: 8200000}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: _Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   - 33: {fileID: 3300000}
   - 64: {fileID: 6400000}
   - 23: {fileID: 2300000}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - 33: {fileID: 3300002}
   - 64: {fileID: 6400002}
   - 23: {fileID: 2300002}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -105,7 +105,7 @@ GameObject:
   - 33: {fileID: 3300004}
   - 64: {fileID: 6400004}
   - 23: {fileID: 2300004}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - 33: {fileID: 3300006}
   - 64: {fileID: 6400006}
   - 23: {fileID: 2300006}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   - 212: {fileID: 21200002}
   - 198: {fileID: 19800000}
   - 199: {fileID: 19900000}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 4_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - 212: {fileID: 21200004}
   - 198: {fileID: 19800002}
   - 199: {fileID: 19900002}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 3_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - 33: {fileID: 3300008}
   - 64: {fileID: 6400008}
   - 23: {fileID: 2300008}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   - 33: {fileID: 3300010}
   - 64: {fileID: 6400010}
   - 23: {fileID: 2300010}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - 33: {fileID: 3300012}
   - 64: {fileID: 6400012}
   - 23: {fileID: 2300012}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   - 33: {fileID: 3300014}
   - 64: {fileID: 6400014}
   - 23: {fileID: 2300014}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,7 +249,7 @@ GameObject:
   - 33: {fileID: 3300016}
   - 64: {fileID: 6400016}
   - 23: {fileID: 2300016}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ GameObject:
   - 212: {fileID: 21200006}
   - 198: {fileID: 19800004}
   - 199: {fileID: 19900004}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 8_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +285,7 @@ GameObject:
   - 33: {fileID: 3300018}
   - 64: {fileID: 6400018}
   - 23: {fileID: 2300018}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ GameObject:
   - 33: {fileID: 3300020}
   - 64: {fileID: 6400020}
   - 23: {fileID: 2300020}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ GameObject:
   - 33: {fileID: 3300022}
   - 64: {fileID: 6400022}
   - 23: {fileID: 2300022}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -339,7 +339,7 @@ GameObject:
   - 33: {fileID: 3300024}
   - 64: {fileID: 6400024}
   - 23: {fileID: 2300024}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   - 33: {fileID: 3300026}
   - 64: {fileID: 6400026}
   - 23: {fileID: 2300026}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - 33: {fileID: 3300028}
   - 64: {fileID: 6400028}
   - 23: {fileID: 2300028}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +393,7 @@ GameObject:
   - 212: {fileID: 21200008}
   - 198: {fileID: 19800006}
   - 199: {fileID: 19900006}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 7_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +411,7 @@ GameObject:
   - 33: {fileID: 3300030}
   - 64: {fileID: 6400030}
   - 23: {fileID: 2300030}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -429,7 +429,7 @@ GameObject:
   - 33: {fileID: 3300032}
   - 64: {fileID: 6400032}
   - 23: {fileID: 2300032}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,7 +447,7 @@ GameObject:
   - 33: {fileID: 3300034}
   - 64: {fileID: 6400034}
   - 23: {fileID: 2300034}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +465,7 @@ GameObject:
   - 33: {fileID: 3300036}
   - 64: {fileID: 6400036}
   - 23: {fileID: 2300036}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   - 33: {fileID: 3300038}
   - 64: {fileID: 6400038}
   - 23: {fileID: 2300038}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -501,7 +501,7 @@ GameObject:
   - 33: {fileID: 3300040}
   - 64: {fileID: 6400040}
   - 23: {fileID: 2300040}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +519,7 @@ GameObject:
   - 33: {fileID: 3300042}
   - 64: {fileID: 6400042}
   - 23: {fileID: 2300042}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   - 33: {fileID: 3300044}
   - 64: {fileID: 6400044}
   - 23: {fileID: 2300044}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   - 212: {fileID: 21200010}
   - 198: {fileID: 19800008}
   - 199: {fileID: 19900008}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 6_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -573,7 +573,7 @@ GameObject:
   - 33: {fileID: 3300046}
   - 64: {fileID: 6400046}
   - 23: {fileID: 2300046}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -591,7 +591,7 @@ GameObject:
   - 33: {fileID: 3300048}
   - 64: {fileID: 6400048}
   - 23: {fileID: 2300048}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -609,7 +609,7 @@ GameObject:
   - 33: {fileID: 3300050}
   - 64: {fileID: 6400050}
   - 23: {fileID: 2300050}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +627,7 @@ GameObject:
   - 33: {fileID: 3300052}
   - 64: {fileID: 6400052}
   - 23: {fileID: 2300052}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -645,7 +645,7 @@ GameObject:
   - 33: {fileID: 3300054}
   - 64: {fileID: 6400054}
   - 23: {fileID: 2300054}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   - 212: {fileID: 21200012}
   - 198: {fileID: 19800010}
   - 199: {fileID: 19900010}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 5_particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -681,7 +681,7 @@ GameObject:
   - 33: {fileID: 3300056}
   - 64: {fileID: 6400056}
   - 23: {fileID: 2300056}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +699,7 @@ GameObject:
   - 33: {fileID: 3300058}
   - 64: {fileID: 6400058}
   - 23: {fileID: 2300058}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,13 +717,13 @@ GameObject:
   - 33: {fileID: 3322946}
   - 23: {fileID: 2322946}
   - 95: {fileID: 9522946}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 3_triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &122948
 GameObject:
   m_ObjectHideFlags: 1
@@ -735,13 +735,13 @@ GameObject:
   - 33: {fileID: 3322948}
   - 23: {fileID: 2322948}
   - 95: {fileID: 9522948}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 4_square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &122950
 GameObject:
   m_ObjectHideFlags: 1
@@ -753,13 +753,13 @@ GameObject:
   - 33: {fileID: 3322950}
   - 23: {fileID: 2322950}
   - 95: {fileID: 9522950}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 5_pentagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &122952
 GameObject:
   m_ObjectHideFlags: 1
@@ -771,13 +771,13 @@ GameObject:
   - 33: {fileID: 3322952}
   - 23: {fileID: 2322952}
   - 95: {fileID: 9522952}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 6_hexagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &122954
 GameObject:
   m_ObjectHideFlags: 1
@@ -789,13 +789,13 @@ GameObject:
   - 33: {fileID: 3322954}
   - 23: {fileID: 2322954}
   - 95: {fileID: 9522954}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 7_heptagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &122956
 GameObject:
   m_ObjectHideFlags: 1
@@ -807,13 +807,13 @@ GameObject:
   - 33: {fileID: 3322956}
   - 23: {fileID: 2322956}
   - 95: {fileID: 9522956}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: 8_octagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &122958
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +822,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 422958}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: particleSystems
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,8 +837,24 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 422960}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: meshes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &166382
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 466382}
+  - 108: {fileID: 10866382}
+  m_Layer: 15
+  m_Name: playerLightColor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,7 +871,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &400002
 Transform:
   m_ObjectHideFlags: 1
@@ -867,7 +883,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 400004}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &400004
 Transform:
   m_ObjectHideFlags: 1
@@ -875,9 +891,10 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 74.0515289, y: -25.9295177, z: 1.73847246}
+  m_LocalPosition: {x: -81.1687088, y: 9.0297718, z: 1.73847246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 466382}
   - {fileID: 400002}
   - {fileID: 400000}
   - {fileID: 422960}
@@ -1435,7 +1452,7 @@ Transform:
   - {fileID: 400042}
   - {fileID: 400028}
   m_Father: {fileID: 400004}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &422960
 Transform:
   m_ObjectHideFlags: 1
@@ -1453,7 +1470,19 @@ Transform:
   - {fileID: 422954}
   - {fileID: 422956}
   m_Father: {fileID: 400004}
-  m_RootOrder: 2
+  m_RootOrder: 3
+--- !u!4 &466382
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166382}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 400004}
+  m_RootOrder: 0
 --- !u!23 &2300000
 Renderer:
   m_ObjectHideFlags: 1
@@ -3117,7 +3146,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294950911
+    m_Bits: 4294911999
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -3152,7 +3181,42 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294950911
+    m_Bits: 4294911999
+  m_Lightmapping: 1
+  m_ShadowSamples: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+  m_IndirectIntensity: 1
+  m_AreaSize: {x: 1, y: 1}
+--- !u!108 &10866382
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 166382}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 8
+  m_Range: 2
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_Strength: 1
+    m_Bias: .0500000007
+    m_Softness: 4
+    m_SoftnessFade: 1
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_ActuallyLightmapped: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -3196,6 +3260,9 @@ MonoBehaviour:
   onTopThreshold: .100000001
   respawnTime: 1
   playerID: 0
+  colorLight: {fileID: 10866382}
+  color: {r: 1, g: 1, b: 1, a: 1}
+  enableParticles: 0
   currentVertices: 0
   particles3: {fileID: 100016}
   particles4: {fileID: 100014}

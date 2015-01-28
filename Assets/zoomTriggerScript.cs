@@ -13,8 +13,9 @@ public class zoomTriggerScript : MonoBehaviour {
 	private Vector3 offset;
 
 	private float distanceToCamera;
+	private CircleCollider2D trigger;
 	private float triggerRadius;
-	private float factor;
+	private float factor = 0;
 	#endregion
 
 
@@ -24,7 +25,7 @@ public class zoomTriggerScript : MonoBehaviour {
 
 	#region initialization
 	void Awake() {
-		triggerRadius = GetComponent<CircleCollider2D>().radius;
+		trigger = GetComponent<CircleCollider2D>();
 	}
 
 	void Start () {
@@ -35,19 +36,23 @@ public class zoomTriggerScript : MonoBehaviour {
 
 	#region gameloop
 	void Update () {
+		triggerRadius = trigger.radius;
 
-	}
+		distanceToCamera = Vector2.Distance(new Vector2(cameraScript.transform.position.x,cameraScript.transform.position.y) , new Vector2(this.transform.position.x, this.transform.position.y));
 
-	void FixedUpdate() {
-		distanceToCamera = Vector3.Distance(cameraScript.cameraTarget, this.transform.position);
-		
+		factor = (triggerRadius-distanceToCamera)/triggerRadius;
+		if (factor <= 0){
+			factor = 0;
+		}
+//		Debug.Log ("(" + triggerRadius + " - " + distanceToCamera + ") / " + triggerRadius + " = " + factor);
+//		Debug.Log ("distanceToCamera" + distanceToCamera + " <= " + triggerRadius + "triggerRadius");
 		if (distanceToCamera <= triggerRadius){
-			factor = (triggerRadius-distanceToCamera)/triggerRadius;
 			cameraScript.externalZoomFactor = zoomFactor * factor;
 			cameraScript.externalOffset = offset * factor;
 		}
-		else cameraScript.externalOffset = Vector3.zero;
+
 	}
+	
 	#endregion
 
 

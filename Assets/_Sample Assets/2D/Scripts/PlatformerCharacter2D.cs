@@ -41,8 +41,12 @@ public class PlatformerCharacter2D : MonoBehaviour
 	public int playerID;
 
 	private Light[] playerLights;
+	[SerializeField]
+	private Light colorLight;
+	[HideInInspector]
+	public Color color;
 
-	private Vector3[] playerColor = {new Vector3(1f,1f,.5f), new Vector3(1f,0.33f,0.33f)};
+	public bool enableParticles = false;
 
 	private AudioSource audioSource;
 	private AudioClip[] audioClipsChangeShape;
@@ -167,22 +171,15 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	#region methods/functions
 
-	public void Init(int vertices){
+	public void Init(int vertices, Color color){
 		// Initiate the player shape
 		ChangeShape(vertices);
-		
+
 		// Initiate the player color and layer masks
-		ChangeColor(playerColor[playerID-1]);
+		this.color = color;
+		ChangeColor(color);
 		
-		switch (playerID){
-		case 1: whatIsOtherPlayer = LayerMask.GetMask("Player2");
-			ChangeLayerMask("Player1");
-			break;
-		case 2: whatIsOtherPlayer = LayerMask.GetMask("Player1");
-			ChangeLayerMask("Player2");
-			break;
-		default: break;
-		}
+
 		this.gameObject.name = "Player"+playerID;
 
 		alive = true;
@@ -254,7 +251,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 			projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity) as Transform;
 
 			// set the shape of the projectile
-			projectile.GetComponent<ProjectileBehaviour>().Init(currentVertices, new Color(playerColor[playerID-1].x, playerColor[playerID-1].y, playerColor[playerID-1].z));
+			projectile.GetComponent<ProjectileBehaviour>().Init(currentVertices, color);
 
 			// set source, target and direction
 			projectile.GetComponent<ProjectileBehaviour>().source = this.gameObject;
@@ -331,32 +328,33 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 		// Play audio only if in playing state
 		if (playerHasControl){
-			if (targetVertices < currentVertices) audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
+			if (targetVertices < currentVertices) audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.2f);
 			else audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
 		}
 
-		// TODO: check
 		// Deactiveate all particle emitters first
 		for (int i = 0; i < particleObject.Length; i++){
 			if (particleObject[i] != null) particleObject[i].SetActive(false);
 			else Debug.Log(i + " is null");
 		}
 		// Activate corresponding particle emitter
-		if (particleObject[targetVertices-3] != null) particleObject[targetVertices-3].SetActive(true);
+		if (enableParticles && particleObject[targetVertices-3] != null) particleObject[targetVertices-3].SetActive(true);
 
 		// Set the new vertex count
 		currentVertices = targetVertices;
 	}
 	
-	public void ChangeColor(Vector3 color){
+	public void ChangeColor(Color color){
 //		spriteRenderer.color = new Color(color.x, color.y, color.z, 1.0f);
 
-		for (int i = 0; i < playerLights.Length; i++)
-			playerLights[i].color = new Color(color.x, color.y, color.z, 1.0f);
+//		for (int i = 0; i < playerLights.Length; i++)
+//			playerLights[i].color = color;
+		colorLight.color = color;
 
 		foreach (GameObject particle in particleObject){
-			particle.GetComponent<ParticleSystem>().startColor = new Color(color.x, color.y, color.z, 1.0f);
+			particle.GetComponent<ParticleSystem>().startColor = color;
 		}
+		this.color = color;
 	}
 	
 	public void ChangeLayerMask(string layerName){
@@ -381,7 +379,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	// returns the players color
 	private Color GetPlayerColor(){
-		return new Color(playerColor[playerID-1].x, playerColor[playerID-1].y, playerColor[playerID-1].z);
+		return color;
 	}
 	
 	#endregion
@@ -389,7 +387,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 	#region debug
 
 	void OnDrawGizmos(){
-		Gizmos.color = new Color(playerColor[playerID-1].x, playerColor[playerID-1].y, playerColor[playerID-1].z);
+		Gizmos.color = color;
 		Gizmos.DrawWireSphere(this.transform.position,groundedRadius);		
 	}
 

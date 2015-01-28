@@ -4,6 +4,10 @@ using System.Collections;
 public class Keyhole : MonoBehaviour {
 
 	public bool keyhole;
+
+	public bool isTriangleKeyhole;
+	public bool isSquareKeyhole;
+
 	public bool switchObject;
 
 	public bool trigger;
@@ -18,12 +22,55 @@ public class Keyhole : MonoBehaviour {
 
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.tag == "Player" && keyhole) trigger = true;
-		if (other.gameObject.tag == "Projectile" && switchObject) trigger = !trigger; 
+	void FixedUpdate(){
+
 	}
 
-	void OnTriggerExit2D(Collider2D other){
-		if (other.gameObject.tag == "Player" && keyhole) trigger = false;
+	void OnCollisionStay2D(Collision2D other){
+		if (other.gameObject.tag == "Player" && keyhole){
+			switch(other.gameObject.GetComponent<PlatformerCharacter2D>().currentVertices){
+			case 3:
+				if (isTriangleKeyhole) ActivateTrigger();
+				else if (isSquareKeyhole) DeactivateTrigger();
+				break;
+			case 4:
+				if (isSquareKeyhole) ActivateTrigger();
+				else if (isTriangleKeyhole) DeactivateTrigger();
+				break;
+			default:
+				DeactivateTrigger();
+				break;
+			}
+		}
+	}
+
+	void OnCollisionExit2D(Collision2D other){
+		DeactivateTrigger();
+	}
+
+	void OnTriggerStay2D(Collider2D other){
+		if (other.gameObject.tag == "Player" && keyhole){
+			if (other.gameObject.GetComponent<PlatformerCharacter2D>().currentVertices == 3) ActivateTrigger();
+			else DeactivateTrigger();
+		}
+		if (other.gameObject.tag == "Projectile" && switchObject) SwitchTrigger();
+	}
+
+	void ActivateTrigger(){
+		if (isTriangleKeyhole || isSquareKeyhole){
+			GetComponent<SpriteRenderer>().color = Color.green;
+		}
+		trigger = true;
+	}
+
+	void DeactivateTrigger(){
+		if (isTriangleKeyhole || isSquareKeyhole){
+			GetComponent<SpriteRenderer>().color = Color.red;
+		}
+		trigger = false;
+	}
+
+	void SwitchTrigger(){
+		trigger = !trigger;
 	}
 }
