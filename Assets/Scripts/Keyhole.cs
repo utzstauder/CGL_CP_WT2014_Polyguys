@@ -12,9 +12,12 @@ public class Keyhole : MonoBehaviour {
 
 	public bool trigger;
 
+	private Animator anim;
+
 	// Use this for initialization
 	void Start () {
 		trigger = false;
+		if (switchObject) anim = transform.Find ("switchMesh").GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -48,12 +51,15 @@ public class Keyhole : MonoBehaviour {
 		DeactivateTrigger();
 	}
 
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.gameObject.tag == "Projectile" && switchObject) HitSwitch();
+	}
+
 	void OnTriggerStay2D(Collider2D other){
 		if (other.gameObject.tag == "Player" && keyhole){
 			if (other.gameObject.GetComponent<PlatformerCharacter2D>().currentVertices == 3) ActivateTrigger();
 			else DeactivateTrigger();
 		}
-		if (other.gameObject.tag == "Projectile" && switchObject) SwitchTrigger();
 	}
 
 	void ActivateTrigger(){
@@ -70,7 +76,8 @@ public class Keyhole : MonoBehaviour {
 		trigger = false;
 	}
 
-	void SwitchTrigger(){
+	void HitSwitch(){
 		trigger = !trigger;
+		anim.SetBool("trigger", trigger);
 	}
 }

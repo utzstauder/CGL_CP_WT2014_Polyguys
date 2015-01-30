@@ -26,6 +26,7 @@ public class zoomTriggerScript : MonoBehaviour {
 	#region initialization
 	void Awake() {
 		trigger = GetComponent<CircleCollider2D>();
+		cameraScript = GameObject.Find ("MainCamera").GetComponent<CameraFollow>();
 	}
 
 	void Start () {

@@ -26,6 +26,7 @@ GameObject:
   - 4: {fileID: 488240}
   - 114: {fileID: 11439314}
   - 108: {fileID: 10810200}
+  - 212: {fileID: 21229820}
   m_Layer: 0
   m_Name: StartP1
   m_TagString: Spawn Point
@@ -43,6 +44,7 @@ GameObject:
   - 4: {fileID: 488242}
   - 114: {fileID: 11439312}
   - 108: {fileID: 10810202}
+  - 212: {fileID: 21229818}
   m_Layer: 0
   m_Name: StartP2
   m_TagString: Spawn Point
@@ -235,9 +237,11 @@ MonoBehaviour:
   enableTimer: 1
   playerPrefab: {fileID: 100004, guid: 85ecaacbc52c04db58b0aa959a6c57b6, type: 2}
   spawnP1: {fileID: 488240}
+  startVerticesP1: 3
   spawnP2: {fileID: 488242}
-  colorP1: {r: .520410836, g: .498039186, b: 1, a: 0}
-  colorP2: {r: 1, g: .766497314, b: .498039186, a: 1}
+  startVerticesP2: 3
+  colorP1: {r: .520410836, g: .498039186, b: 1, a: 1}
+  colorP2: {r: .498039186, g: 1, b: .567950189, a: 1}
   players: []
   spawnPoints: []
   timerObject: {fileID: 188240}
@@ -315,6 +319,50 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!212 &21229818
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188238}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!212 &21229820
+SpriteRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188236}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10754, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!222 &22288242
 CanvasRenderer:
   m_ObjectHideFlags: 1

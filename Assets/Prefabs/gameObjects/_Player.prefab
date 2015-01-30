@@ -3145,7 +3145,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294911999
+    m_Bits: 4294846463
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0
@@ -3180,7 +3180,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294911999
+    m_Bits: 4294846463
   m_Lightmapping: 1
   m_ShadowSamples: 1
   m_ShadowRadius: 0

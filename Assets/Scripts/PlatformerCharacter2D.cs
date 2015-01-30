@@ -36,6 +36,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 	private float respawnTime;
 	private bool alive;
 
+	public CameraFollow mainCamera;
+	public CameraSystem mainCameraSystem;
+
 	//---Player variables
 
 	public int playerID;
@@ -165,6 +168,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 		};
 
 		audioClipDeath = Resources.Load ("Sounds/death_01", typeof(AudioClip)) as AudioClip;
+
+		if (!mainCamera) mainCamera = GameObject.Find ("MainCamera").GetComponent<CameraFollow>();
+		if (!mainCameraSystem) mainCameraSystem = GameObject.Find ("MainCamera").GetComponent<CameraSystem>();
 	}
 
 	#endregion
@@ -182,6 +188,17 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 		this.gameObject.name = "Player"+playerID;
 
+		switch(playerID){
+		case 1:
+			mainCamera.player1 = this.transform;
+			mainCameraSystem.player1 = this.transform;
+			break;
+		case 2:
+			mainCamera.player2 = this.transform;
+			mainCameraSystem.player2 = this.transform;
+			break;
+		}
+
 		alive = true;
 	}
 
@@ -189,7 +206,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 	void Update(){
 		// jumping
 		if (alive && playerHasControl){
-			if (grounded && !otherPlayerOnTop && rigidbody2D.velocity.y < .2f){
+			if (grounded && !otherPlayerOnTop && Mathf.Abs(rigidbody2D.velocity.y) < 3.5f){
 				if ((playerID == 1 && Input.GetButtonDown("p1Jump"))
 				    || (playerID == 2 && Input.GetButtonDown("p2Jump")) ){
 					// Add a vertical force to the player.
@@ -370,7 +387,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 		GameObject[] respawnPoints = GameObject.FindGameObjectsWithTag("Spawn Point");
 		Transform returnValue = null;
 		foreach (GameObject spawnPoint in respawnPoints){
-			if (spawnPoint.GetComponent<checkpoint>().Activated() && (returnValue == null || (Vector3.Distance(spawnPoint.transform.position,this.transform.position) < Vector3.Distance(returnValue.position, this.transform.position))) ){
+			if (returnValue == null || (Vector3.Distance(spawnPoint.transform.position,this.transform.position) < Vector3.Distance(returnValue.position, this.transform.position))){
+				if ( (spawnPoint.GetComponent<checkpoint>().isActivatedP1 && playerID == 1) || (spawnPoint.GetComponent<checkpoint>().isActivatedP2 && playerID == 2) )
 				returnValue = spawnPoint.transform;
 			}
 		}
@@ -424,6 +442,12 @@ public class PlatformerCharacter2D : MonoBehaviour
 		if (other.gameObject.tag == "Deadly" && alive){
 //			Debug.Log("Contact with killzone");
 			StartCoroutine(DieAndRespawn(other.gameObject));
+		}
+	}
+
+	void OnTriggerStay2D(Collider2D other){
+		if (other.gameObject.tag == "Jumpzone"){
+			grounded = true;
 		}
 	}
 

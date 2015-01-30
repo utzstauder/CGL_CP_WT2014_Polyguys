@@ -6,6 +6,9 @@ public class CameraFollow : MonoBehaviour {
 	// Link to game manager
 	public GameManager gm;
 
+	public Transform player1;
+	public Transform player2;
+
 	// Link to camera
 	private Camera camera;
 
@@ -43,7 +46,7 @@ public class CameraFollow : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		gm = GameObject.Find ("_GM").GetComponent<GameManager>();
+//		gm = GameObject.Find ("_GM").GetComponent<GameManager>();
 		camera = GetComponent<Camera>();
 		cameraTarget = (GameObject.Find("StartP1").transform.position + GameObject.Find("StartP2").transform.position)/2 + new Vector3(0,0,this.transform.position.z);
 		externalZoomFactor = 0;
@@ -51,9 +54,13 @@ public class CameraFollow : MonoBehaviour {
 	}
 
 	void LateUpdate () {
-		if (gm != null && gm.players[1] != null && gm.players[0] != null){
-			cameraTarget = (gm.players[1].transform.position + gm.players[0].transform.position)/2;
-			playerDistance = Vector3.Distance(gm.players[1].transform.position, gm.players[0].transform.position);
+//		if (gm) if (gm != null && gm.players[1] != null && gm.players[0] != null){
+//			player1 = gm.players[0].transform;
+//			player2 = gm.players[1].transform;
+//		}
+		if (player1 && player2){
+			cameraTarget = (player2.position + player1.position)/2;
+			playerDistance = Vector3.Distance(player2.position, player1.position);
 		}
 
 		float newX = 0;

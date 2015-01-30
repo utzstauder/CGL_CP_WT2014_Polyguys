@@ -3,8 +3,9 @@ using System.Collections;
 
 public class checkpoint : MonoBehaviour {
 
-	[SerializeField]
-	private bool isActivated;
+	public bool isActivatedP1;
+	public bool isActivatedP2;
+
 	[SerializeField]
 	private bool isStartPoint;
 
@@ -27,27 +28,29 @@ public class checkpoint : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "Player"){
-			isActivated = true;
+			switch (other.GetComponent<PlatformerCharacter2D>().playerID){
+			case 1: isActivatedP1 = true;
+				break;
+			case 2: isActivatedP2 = true;
+				break;
+			default: break;
+			}
 			setLight();
 			setSpriteRenderer();
 		}
 	}
 
-	public bool Activated(){
-		return this.isActivated;
-	}
-
 	private void setLight(){
 //		if (!isStartPoint) indicatorLight.enabled = true;
 
-		if (isActivated) indicatorLight.color = Color.green;
+		if (isActivatedP1 || isActivatedP2) indicatorLight.color = Color.green;
 		else indicatorLight.color = Color.red;
 	}
 
 	private void setSpriteRenderer(){
 //		if (!isStartPoint) spriteRenderer.enabled = true;
 
-		if (isActivated) spriteRenderer.color = Color.green;
+		if (isActivatedP1 || isActivatedP2) spriteRenderer.color = Color.green;
 		else spriteRenderer.color = Color.red;
 	}
 }

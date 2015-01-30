@@ -21,7 +21,8 @@ public class ProjectileBehaviour : MonoBehaviour {
 	[SerializeField]
 	private ParticleSystem particleEffect;
 
-	private ParticleSystem particleSystem;
+	[HideInInspector]
+	public ParticleSystem particleSystem;
 
 	[HideInInspector]
 	public int currentVertices;
@@ -98,6 +99,19 @@ public class ProjectileBehaviour : MonoBehaviour {
 		currentVertices = targetVertices;
 	}
 
+	private void Reflect(){
+		GameObject tmp = source;
+		source = target;
+		target = tmp;
+		tmp = null;
+	}
+
+	private void ParticleBlast(){
+		ParticleSystem particleEffectObject = Instantiate(particleEffect, this.transform.position, Quaternion.identity) as ParticleSystem;
+		particleEffectObject.startColor = particleSystem.startColor;
+		particleEffectObject.GetComponent<autoDestroy>().triggerDestroy(particleEffect.startLifetime);
+	}
+
 	void OnTriggerEnter2D (Collider2D other){
 		if (other.gameObject == target.gameObject){
 			//Debug.Log ("Collision with " + other.gameObject);
@@ -105,14 +119,13 @@ public class ProjectileBehaviour : MonoBehaviour {
 			particleSystem.GetComponent<autoDestroy>().triggerDestroy(particleSystem.startLifetime);
 			Destroy (this.gameObject);
 		} else if (other.gameObject.tag == "Impenetrable"){
-			GameObject tmp = source;
-			source = target;
-			target = tmp;
-			tmp = null;
+			Reflect();
+			ParticleBlast ();
 
-			ParticleSystem particleEffectObject = Instantiate(particleEffect, this.transform.position, Quaternion.identity) as ParticleSystem;
-			particleEffectObject.startColor = particleSystem.startColor;
-			particleEffectObject.GetComponent<autoDestroy>().triggerDestroy(particleEffect.startLifetime);
+		} else if (other.gameObject.tag == "Boss"){
+			// allways reflect, everything else is done in the bosses script	
+			Reflect ();
+			ParticleBlast ();
 		}
 	}
 }

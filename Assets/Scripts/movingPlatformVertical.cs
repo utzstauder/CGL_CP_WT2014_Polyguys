@@ -18,8 +18,13 @@ public class movingPlatformVertical : MonoBehaviour {
 	private GameObject triggerObject1;
 	[SerializeField]
 	private GameObject triggerObject2;
+
 	[SerializeField]
-	private float speed;
+	private float upSpeed;
+	[SerializeField]
+	private bool upSpeedEqualsDownSpeed = true;
+	[SerializeField]
+	private float downSpeed;
 
 	[SerializeField]
 	private float yMin;
@@ -62,11 +67,12 @@ public class movingPlatformVertical : MonoBehaviour {
 		if (up){
 			// raise the platform
 			if ((transform.position.y - initialPosition.y) < yMax)
-				transform.position += new Vector3(0,Time.deltaTime * speed,0);
+				transform.position += new Vector3(0,Time.deltaTime * upSpeed,0);
 		} else{ 
 			// lower the platform
 			if ((transform.position.y - initialPosition.y) > yMin)
-				transform.position -= new Vector3(0,Time.deltaTime * speed,0);
+				if (upSpeedEqualsDownSpeed) transform.position -= new Vector3(0,Time.deltaTime * upSpeed,0);
+			else transform.position -= new Vector3(0,Time.deltaTime * downSpeed,0);
 			}
 	}
 

@@ -24,12 +24,12 @@ GameObject:
   m_Component:
   - 4: {fileID: 407068}
   - 212: {fileID: 21207066}
-  - 61: {fileID: 6107066}
   - 114: {fileID: 11407066}
   - 60: {fileID: 6007066}
+  - 61: {fileID: 6111252}
   m_Layer: 10
   m_Name: _movingPlatformVertical
-  m_TagString: Untagged
+  m_TagString: Jumpzone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -159,17 +159,17 @@ PolygonCollider2D:
     - - {x: -.392807484, y: .0336990356}
       - {x: .451543063, y: -.259460449}
       - {x: .531258821, y: .0998725891}
---- !u!61 &6107066
+--- !u!61 &6111252
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 107068}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Size: {x: 1.07000005, y: 1.05999994}
-  m_Center: {x: 0, y: 0}
+  m_IsTrigger: 1
+  m_Size: {x: 1, y: 1}
+  m_Center: {x: .0500000007, y: .5}
 --- !u!95 &9507066
 Animator:
   serializedVersion: 3
@@ -198,9 +198,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 1
   numberOfTriggers: 1
+  bothTriggersNeeded: 0
   triggerObject1: {fileID: 0}
   triggerObject2: {fileID: 0}
-  speed: 1
+  upSpeed: 1
+  upSpeedEqualsDownSpeed: 1
+  downSpeed: 0
   yMin: 0
   yMax: 1
 --- !u!212 &21207066

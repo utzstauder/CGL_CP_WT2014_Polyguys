@@ -10,7 +10,13 @@ public class DebugManager : MonoBehaviour {
 	public GameObject playerPrefab;
 
 	public Transform spawnP1;
+	[SerializeField]
+	[Range(3,8)]
+	private int startVerticesP1 = 3;
 	public Transform spawnP2;
+	[SerializeField]
+	[Range(3,8)]
+	private int startVerticesP2 = 3;
 	public Color colorP1;
 	public Color colorP2;
 
@@ -24,11 +30,6 @@ public class DebugManager : MonoBehaviour {
 	
 	public GameObject timerObject;
 	private timerScript timer;
-
-	// data variables
-
-	private int verticesAtLevelStartP1 = 3;
-	private int verticesAtLevelStartP2 = 3;
 
 	// Use this for initialization
 	void Awake(){
@@ -61,7 +62,7 @@ public class DebugManager : MonoBehaviour {
 	void InitScene(){
 		spawnPoints = new Vector3[2]{spawnP1.position, spawnP2.position};
 
-		SpawnPlayers(verticesAtLevelStartP1, verticesAtLevelStartP2);
+		SpawnPlayers(startVerticesP1, startVerticesP2);
 
 
 		// reset the timer
