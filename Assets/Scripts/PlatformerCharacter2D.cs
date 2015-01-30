@@ -46,6 +46,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 	private Light[] playerLights;
 	[SerializeField]
 	private Light colorLight;
+	[SerializeField]
+	private Light colorLightForeground;
 	[HideInInspector]
 	public Color color;
 
@@ -90,6 +92,20 @@ public class PlatformerCharacter2D : MonoBehaviour
 										2150f,
 										2600f
 	};
+
+	private Color[] presetColorsP1 = {	new Color(.949f, 1f, .341f, 1f),
+										new Color(1f, .663f, .337f, 1f),
+										new Color(.937f, .647f, .271f, 1f),
+										new Color(1f, .522f, .337f, 1f),
+										new Color(1f, .431f, .341f, 1f),
+										new Color(.988f, .341f, .231f, 1f)};
+
+	private Color[] presetColorsP2 = {	new Color(.157f, .824f, .176f, 1f),
+										new Color(.369f, .918f, .41f, 1f),
+										new Color(.157f, .824f, .439f, 1f),
+										new Color(.341f, 1f, .965f, 1f),
+										new Color(.341f, .761f, 1f, 1f),
+										new Color(.231f, .357f, .988f, 1f)};
 
 	private PolygonCollider2D[] polygonCollider2D;
 	private BoxCollider2D boxCollider2D;
@@ -177,25 +193,20 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	#region methods/functions
 
-	public void Init(int vertices, Color color){
+	public void Init(int vertices){
 		// Initiate the player shape
 		ChangeShape(vertices);
-
-		// Initiate the player color and layer masks
-		this.color = color;
-		ChangeColor(color);
-		
 
 		this.gameObject.name = "Player"+playerID;
 
 		switch(playerID){
 		case 1:
-			mainCamera.player1 = this.transform;
-			mainCameraSystem.player1 = this.transform;
+			if (mainCamera) mainCamera.player1 = this.transform;
+			if (mainCameraSystem) mainCameraSystem.player1 = this.transform;
 			break;
 		case 2:
-			mainCamera.player2 = this.transform;
-			mainCameraSystem.player2 = this.transform;
+			if (mainCamera) mainCamera.player2 = this.transform;
+			if (mainCameraSystem) mainCameraSystem.player2 = this.transform;
 			break;
 		}
 
@@ -206,7 +217,9 @@ public class PlatformerCharacter2D : MonoBehaviour
 	void Update(){
 		// jumping
 		if (alive && playerHasControl){
-			if (grounded && !otherPlayerOnTop && Mathf.Abs(rigidbody2D.velocity.y) < 3.5f){
+			if ((playerID == 1 && Input.GetButtonDown("p1Shoot"))
+			    || (playerID == 2 && Input.GetButtonDown("p2Shoot")) ) Shoot();
+			else if (grounded && !otherPlayerOnTop && Mathf.Abs(rigidbody2D.velocity.y) < 3.5f){
 				if ((playerID == 1 && Input.GetButtonDown("p1Jump"))
 				    || (playerID == 2 && Input.GetButtonDown("p2Jump")) ){
 					// Add a vertical force to the player.
@@ -215,9 +228,6 @@ public class PlatformerCharacter2D : MonoBehaviour
 					audioSource.PlayOneShot(audioClipsJump[currentVertices-3],0.33f);
 				} 
 			}
-
-			if ((playerID == 1 && Input.GetButtonDown("p1Shoot"))
-			    || (playerID == 2 && Input.GetButtonDown("p2Shoot")) ) Shoot();
 		}
 	}
 
@@ -357,6 +367,16 @@ public class PlatformerCharacter2D : MonoBehaviour
 		// Activate corresponding particle emitter
 		if (enableParticles && particleObject[targetVertices-3] != null) particleObject[targetVertices-3].SetActive(true);
 
+		// Change color
+		switch(playerID){
+		case 1: ChangeColor(presetColorsP1[targetVertices-3]);
+			break;
+		case 2: ChangeColor(presetColorsP2[targetVertices-3]);
+			break;
+		default:
+			break;
+		}
+
 		// Set the new vertex count
 		currentVertices = targetVertices;
 	}
@@ -367,6 +387,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 //		for (int i = 0; i < playerLights.Length; i++)
 //			playerLights[i].color = color;
 		colorLight.color = color;
+		colorLightForeground.color = color;
 
 		foreach (GameObject particle in particleObject){
 			particle.GetComponent<ParticleSystem>().startColor = color;
@@ -455,7 +476,6 @@ public class PlatformerCharacter2D : MonoBehaviour
 
 	#region coroutines
 
-	// TODO: fix!
 	private IEnumerator DieAndRespawn(GameObject killObject){
 		// TODO: die and move to respawn
 		alive = false;

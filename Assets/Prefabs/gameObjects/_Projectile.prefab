@@ -202,6 +202,7 @@ MonoBehaviour:
   projectileParticleSystem: {fileID: 19887896, guid: 844cdbda4e14d48c98dc8f260e362cfd,
     type: 2}
   particleEffect: {fileID: 19885654, guid: 73e4cf50bf76046a2b246fc7b9fd0184, type: 2}
+  particleSystem: {fileID: 0}
   currentVertices: 0
   light1: {fileID: 10867090}
   light2: {fileID: 10800000}
@@ -213,7 +214,7 @@ SpriteRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_LightmapIndex: 255

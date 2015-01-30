@@ -859,7 +859,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 100004, guid: 85ecaacbc52c04db58b0aa959a6c57b6, type: 2}
   spawnP1: {fileID: 0}
   spawnP2: {fileID: 0}
-  colorP1: {r: .520410836, g: .498039186, b: 1, a: 1}
+  colorP1: {r: 1, g: .833611846, b: .498039186, a: 1}
   colorP2: {r: .498039186, g: 1, b: .563813329, a: 1}
   players: []
   spawnPoints: []

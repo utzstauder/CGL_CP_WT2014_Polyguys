@@ -42,7 +42,7 @@ public class CameraSystem : MonoBehaviour {
 	}
 
 	void LateUpdate(){
-		//TODO: set up variables
+		//set up variables
 		float newX = GetCameraTarget().x;
 		float newY = GetCameraTarget().y;
 		float newZ = GetCameraTarget().z;
@@ -54,12 +54,12 @@ public class CameraSystem : MonoBehaviour {
 		newY = (GetNearestWaypointRight(newX).transform.position.y - GetNearestWaypointLeft(newX).transform.position.y)/(GetNearestWaypointRight(newX).transform.position.x - GetNearestWaypointLeft(newX).transform.position.x) * (newX - GetNearestWaypointLeft(newX).transform.position.x) + GetNearestWaypointLeft(newX).transform.position.y;
 
 		//calculate progression on current waypoint segment
-		float progression = Vector3.Distance(GetNearestWaypointLeft(newX).transform.position, new Vector3 (newX, newY, newZ))
-			/ Vector3.Distance(GetNearestWaypointLeft(newX).transform.position, GetNearestWaypointRight(newX).transform.position);;
-//		Debug.Log (progression);
+		float progression = Vector2.Distance(new Vector2(GetNearestWaypointLeft(newX).transform.position.x, GetNearestWaypointLeft(newX).transform.position.y), new Vector3 (newX, newY, newZ))
+			/ Vector2.Distance(new Vector2(GetNearestWaypointLeft(newX).transform.position.x, GetNearestWaypointLeft(newX).transform.position.y), new Vector2(GetNearestWaypointRight(newX).transform.position.x, GetNearestWaypointRight(newX).transform.position.y));
+		progression = Mathf.Clamp(progression, 0, 1f);
 
 		//calculate new zoom
-		float newZoom = Mathf.Lerp (GetNearestWaypointLeft(newX).zoom, GetNearestWaypointRight(newX).zoom,  Mathf.SmoothStep(0, 1f, progression));
+		float newZoom = Mathf.SmoothStep (GetNearestWaypointLeft(newX).zoom, GetNearestWaypointRight(newX).zoom,  progression);
 
 		//update the limiting colliders
 		UpdateColliders(newZoom);
@@ -141,10 +141,12 @@ public class CameraSystem : MonoBehaviour {
 	#endregion
 
 	void OnDrawGizmos(){
-		Gizmos.color = Color.white;
 		if (Application.isPlaying){
+			Gizmos.color = Color.red;
 			Gizmos.DrawLine(this.transform.position, GetNearestWaypointLeft(GetCameraTarget().x).transform.position);
+			Gizmos.color = Color.white;
 			Gizmos.DrawLine(this.transform.position, GetNearestWaypointRight(GetCameraTarget().x).transform.position);
+
 		}
 	}
 

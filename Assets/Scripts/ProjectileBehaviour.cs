@@ -44,12 +44,12 @@ public class ProjectileBehaviour : MonoBehaviour {
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		// Loading the sprite and audio resources
-		presetSprites = new Sprite[] {	Resources.Load("Sprites/polygons/3_triangle", typeof(Sprite)) as Sprite,
-			Resources.Load("Sprites/polygons/4_square", typeof(Sprite)) as Sprite,
-			Resources.Load("Sprites/polygons/5_pentagon", typeof(Sprite)) as Sprite,
-			Resources.Load("Sprites/polygons/6_hexagon", typeof(Sprite)) as Sprite,
-			Resources.Load("Sprites/polygons/7_septagon", typeof(Sprite)) as Sprite,
-			Resources.Load("Sprites/polygons/8_octagon", typeof(Sprite)) as Sprite
+		presetSprites = new Sprite[] {	Resources.Load("Sprites/polygons_fill/3_triangle", typeof(Sprite)) as Sprite,
+			Resources.Load("Sprites/polygons_fill/4_square", typeof(Sprite)) as Sprite,
+			Resources.Load("Sprites/polygons_fill/5_pentagon", typeof(Sprite)) as Sprite,
+			Resources.Load("Sprites/polygons_fill/6_hexagon", typeof(Sprite)) as Sprite,
+			Resources.Load("Sprites/polygons_fill/7_septagon", typeof(Sprite)) as Sprite,
+			Resources.Load("Sprites/polygons_fill/8_octagon", typeof(Sprite)) as Sprite
 		};
 
 		//particleSystem = GetComponent<ParticleSystem>();
@@ -88,13 +88,14 @@ public class ProjectileBehaviour : MonoBehaviour {
 
 	public void Init(int targetVertices, Color color){
 		spriteRenderer.sprite = presetSprites[targetVertices-3];
+		spriteRenderer.color = color * new Color(1f, 1f, 1f, .5f);
 
 		particleSystem = Instantiate(projectileParticleSystem, this.transform.position, Quaternion.identity) as ParticleSystem;
 		particleSystem.startSize *= targetVertices*targetVertices;
-//		particleSystem.startColor = color * Color.white;
+		particleSystem.startColor = color;
 //
-//		light1.color = color;
-//		light2.color = color;
+		light1.color = color;
+		light2.color = color;
 
 		currentVertices = targetVertices;
 	}

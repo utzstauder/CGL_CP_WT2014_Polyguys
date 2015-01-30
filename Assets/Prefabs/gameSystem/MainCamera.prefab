@@ -101,7 +101,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 170300}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30}
+  m_LocalPosition: {x: 368, y: -13.8000002, z: -30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 453798}
@@ -141,7 +141,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15
+  orthographic size: 24.5056114
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -227,7 +227,7 @@ MonoBehaviour:
   yMax: 8
   lockX: 0
   lockY: 0
-  lockZoom: 0
+  lockZoom: 1
   zoomFactor: 0
   externalZoomFactor: 0
   externalOffset: {x: 0, y: 0, z: 0}
@@ -260,7 +260,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 83d715db669f54a46b72216ff7f119b0, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: .53725493}
+  m_Color: {r: 0, g: 0, b: 0, a: .501960814}
 --- !u!212 &21253800
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -282,7 +282,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 83d715db669f54a46b72216ff7f119b0, type: 3}
-  m_Color: {r: 0, g: 0, b: .752941191, a: .501960814}
+  m_Color: {r: .00559273548, g: 0, b: .501960814, a: .501960814}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

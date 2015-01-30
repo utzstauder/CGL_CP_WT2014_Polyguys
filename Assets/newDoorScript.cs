@@ -85,7 +85,7 @@ public class newDoorScript : MonoBehaviour {
 	void OnDrawGizmosSelected(){
 		// draw trigger reference(s)
 		Gizmos.color = Color.red;
-		if (numberOfTriggers >= 1) Gizmos.DrawLine(this.transform.position, triggerObject1.transform.position);
-		if (numberOfTriggers >= 2) Gizmos.DrawLine(this.transform.position, triggerObject2.transform.position);
+		if (numberOfTriggers >= 1 && triggerObject1) Gizmos.DrawLine(this.transform.position, triggerObject1.transform.position);
+		if (numberOfTriggers >= 2 && triggerObject1 && triggerObject2) Gizmos.DrawLine(this.transform.position, triggerObject2.transform.position);
 	}
 }

@@ -15,7 +15,7 @@ public class WaypointScript : MonoBehaviour {
 
 	#region initialization
 	void Awake() {
-
+		GetComponent<SpriteRenderer>().enabled = false;
 	}
 
 	void Start () {

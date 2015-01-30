@@ -10,8 +10,12 @@ public class Keyhole : MonoBehaviour {
 
 	public bool switchObject;
 
-	public bool trigger;
+	public bool playersInsideTriggerZone;	
+	private bool player1InTrigger;
+	private bool player2InTrigger;
 
+	public bool trigger;
+	
 	private Animator anim;
 
 	// Use this for initialization
@@ -26,7 +30,10 @@ public class Keyhole : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-
+		if (playersInsideTriggerZone){
+			if (player1InTrigger && player2InTrigger) ActivateTrigger();
+			else DeactivateTrigger();
+		}
 	}
 
 	void OnCollisionStay2D(Collision2D other){
@@ -53,12 +60,37 @@ public class Keyhole : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.tag == "Projectile" && switchObject) HitSwitch();
+
 	}
 
 	void OnTriggerStay2D(Collider2D other){
 		if (other.gameObject.tag == "Player" && keyhole){
 			if (other.gameObject.GetComponent<PlatformerCharacter2D>().currentVertices == 3) ActivateTrigger();
 			else DeactivateTrigger();
+		}
+		if (other.gameObject.tag == "Player"){
+			switch (other.gameObject.name){
+			case "Player1": player1InTrigger = true;
+				break;
+			case "Player2": player2InTrigger = true;
+				break;
+			default:
+				break;
+			}
+			if (player1InTrigger && player2InTrigger) ActivateTrigger();
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other){
+		if (other.gameObject.tag == "Player"){
+			switch (other.gameObject.name){
+			case "Player1": player1InTrigger = false;
+				break;
+			case "Player2": player2InTrigger = false;
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
