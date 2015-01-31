@@ -10,6 +10,10 @@ public class newDoorScript : MonoBehaviour {
 	
 	[SerializeField]
 	private bool bothTriggersNeeded;
+
+	[SerializeField]
+	private bool closes;
+
 	[SerializeField]
 	private bool stayOpen;
 	
@@ -50,13 +54,17 @@ public class newDoorScript : MonoBehaviour {
 	#region gameloop
 	void Update () {
 		if (numberOfTriggers == 1 && triggerObject1.GetComponent<Keyhole>().trigger){
-			Open ();
+			if (!closes) Open ();
+			else Close ();
 		} else if (numberOfTriggers == 2){
 			if ( (bothTriggersNeeded && (triggerObject1.GetComponent<Keyhole>().trigger && triggerObject2.GetComponent<Keyhole>().trigger) )
 			    || (!bothTriggersNeeded && (triggerObject1.GetComponent<Keyhole>().trigger || triggerObject2.GetComponent<Keyhole>().trigger) ) ){
-				Open ();
-			} else if (!stayOpen) Close ();
-		} else if (!stayOpen) Close();
+				if (!closes) Open ();
+				else Close ();
+			} else if (!stayOpen) if (closes) Open ();
+									else Close ();
+		} else if (!stayOpen) if (closes) Open ();
+								else Close ();
 	}
 
 	void FixedUpdate() {

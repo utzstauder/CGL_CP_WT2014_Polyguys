@@ -4,6 +4,7 @@ using System.Collections;
 public class Keyhole : MonoBehaviour {
 
 	public bool keyhole;
+	private Light light;
 
 	public bool isTriangleKeyhole;
 	public bool isSquareKeyhole;
@@ -20,8 +21,10 @@ public class Keyhole : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		trigger = false;
 		if (switchObject) anim = transform.Find ("switchMesh").GetComponent<Animator>();
+//		if (keyhole) light = transform.FindChild ("keyholeLightForeground").GetComponent<Light>();
+
+		DeactivateTrigger();
 	}
 	
 	// Update is called once per frame
@@ -77,7 +80,6 @@ public class Keyhole : MonoBehaviour {
 			default:
 				break;
 			}
-			if (player1InTrigger && player2InTrigger) ActivateTrigger();
 		}
 	}
 
@@ -97,6 +99,7 @@ public class Keyhole : MonoBehaviour {
 	void ActivateTrigger(){
 		if (isTriangleKeyhole || isSquareKeyhole){
 			GetComponent<SpriteRenderer>().color = Color.green;
+//			this.light.color = Color.green;
 		}
 		trigger = true;
 	}
@@ -104,6 +107,7 @@ public class Keyhole : MonoBehaviour {
 	void DeactivateTrigger(){
 		if (isTriangleKeyhole || isSquareKeyhole){
 			GetComponent<SpriteRenderer>().color = Color.red;
+//			this.light.color = Color.red;
 		}
 		trigger = false;
 	}
