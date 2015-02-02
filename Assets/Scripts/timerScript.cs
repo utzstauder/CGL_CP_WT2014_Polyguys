@@ -45,6 +45,11 @@ public class timerScript : MonoBehaviour {
 		running = false;
 	}
 
+	public void ToggleShow(){
+		if (text.color.a == 0) text.color = new Color(text.color.r,text.color.g,text.color.b,1f);
+		else text.color = new Color(text.color.r,text.color.g,text.color.b,0);
+	}
+
 	public void ShowResult(){
 		string finalText = "Congratulations!\n Your time was " + text.text + "\nENTER = next level\n SPACE = restart level\n ESC = quit";
 		text.text = finalText;

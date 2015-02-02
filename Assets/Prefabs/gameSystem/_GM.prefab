@@ -737,7 +737,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   playMusic: 1
-  enableTimer: 0
+  enableTimer: 1
   playerPrefab: {fileID: 100004, guid: 85ecaacbc52c04db58b0aa959a6c57b6, type: 2}
   spawnP1: {fileID: 0}
   spawnP2: {fileID: 0}

@@ -62,13 +62,15 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		players = new GameObject[2];
 
-		if (enableTimer) timer = timerObject.GetComponent<timerScript>();
+		timer = timerObject.GetComponent<timerScript>();
 
 		StartCoroutine(FadeToClear(.5f));
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetKeyDown(KeyCode.T)) timer.ToggleShow();
+
 		switch(state){
 		case State.mainmenu:
 			mainMenu.gameObject.SetActive(true);
@@ -124,8 +126,8 @@ public class GameManager : MonoBehaviour {
 		if (playMusic) GetComponent<SoundManager>().StartMusic(1f);
 		StartCoroutine(loadNextLevel());
 
-		// Show the timer if enabled
-		if (enableTimer) timerObject.SetActive(true);
+		timerObject.SetActive(true);
+		timer.ToggleShow();
 	}
 	
 	public void QuitGame(){
@@ -147,7 +149,7 @@ public class GameManager : MonoBehaviour {
 			player.GetComponent<PlatformerCharacter2D>().playerHasControl = false;
 			player.rigidbody2D.isKinematic = true;
 		}
-		if (timer) timer.PauseTimer();
+		timer.PauseTimer();
 		state = State.paused;
 	}
 	
@@ -159,7 +161,7 @@ public class GameManager : MonoBehaviour {
 			player.GetComponent<PlatformerCharacter2D>().playerHasControl = true;
 			player.rigidbody2D.isKinematic = false;
 		}
-		if (timer) timer.ResumeTimer();
+		timer.ResumeTimer();
 		state = State.playing;
 	}
 
@@ -183,8 +185,8 @@ public class GameManager : MonoBehaviour {
 
 
 		// reset the timer
-		if (timer) timer.ResetTimer();
-		if (timer) timer.StartTimer();
+		timer.ResetTimer();
+		timer.StartTimer();
 		// give the players control
 		foreach (GameObject player in players) player.GetComponent<PlatformerCharacter2D>().playerHasControl = true;
 
@@ -194,7 +196,7 @@ public class GameManager : MonoBehaviour {
 
 	void EndLevel(){
 		state = State.endlevel;
-		if (enableTimer) timer.StopTimer();
+		timer.StopTimer();
 
 		// save the players current vertices
 		verticesAtLevelStartP1 = players[0].GetComponent<PlatformerCharacter2D>().currentVertices;
@@ -215,7 +217,18 @@ public class GameManager : MonoBehaviour {
 	void SpawnPlayers(int verticesP1, int verticesP2){
 		// kill the player objects if existing
 		foreach (GameObject player in players) if (player) Destroy (player.gameObject);
-		
+
+		// check for correct vertex count
+		switch(Application.loadedLevel){
+		case 0: break;
+		case 1: break;
+		case 2:
+			if ((verticesP1 + verticesP2) < 7) verticesP1++;
+			break;
+		default: break;
+		}
+
+
 		// Spawn players 
 		players[0] = Instantiate(playerPrefab, spawnPoints[0], Quaternion.identity) as GameObject;
 		players[0].GetComponent<PlatformerCharacter2D>().playerID = 1;

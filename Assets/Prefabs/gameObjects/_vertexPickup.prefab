@@ -134,7 +134,7 @@ GameObject:
   - 108: {fileID: 10885268}
   - 114: {fileID: 11485266}
   m_Layer: 0
-  m_Name: pickupLightBackground
+  m_Name: pickupLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 185266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 40}
+  m_LocalPosition: {x: 0, y: 0, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 485268}
@@ -564,7 +564,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: .0627451017}
   m_Intensity: .800000012
-  m_Range: 20
+  m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:

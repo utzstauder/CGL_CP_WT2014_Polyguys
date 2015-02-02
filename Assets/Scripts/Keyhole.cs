@@ -11,9 +11,14 @@ public class Keyhole : MonoBehaviour {
 
 	public bool switchObject;
 
-	public bool playersInsideTriggerZone;	
-	private bool player1InTrigger;
-	private bool player2InTrigger;
+	public bool playersInsideTriggerZone;
+	[Range(6, 11)]
+	public int minVerticesNeeded = 6;
+	private int player1InTrigger = 0;
+	private int player2InTrigger = 0;
+
+	public Color active = new Color(.102f, .604f, .079f, 1f);
+	public Color inactive = new Color(.671f, .212f, .125f, 1f);
 
 	public bool trigger;
 	
@@ -34,7 +39,7 @@ public class Keyhole : MonoBehaviour {
 
 	void FixedUpdate(){
 		if (playersInsideTriggerZone){
-			if (player1InTrigger && player2InTrigger) ActivateTrigger();
+			if ((player1InTrigger + player2InTrigger) >= minVerticesNeeded) ActivateTrigger();
 			else DeactivateTrigger();
 		}
 	}
@@ -73,9 +78,9 @@ public class Keyhole : MonoBehaviour {
 		}
 		if (other.gameObject.tag == "Player"){
 			switch (other.gameObject.name){
-			case "Player1": player1InTrigger = true;
+			case "Player1": player1InTrigger = other.gameObject.GetComponent<PlatformerCharacter2D>().currentVertices;
 				break;
-			case "Player2": player2InTrigger = true;
+			case "Player2": player2InTrigger = other.gameObject.GetComponent<PlatformerCharacter2D>().currentVertices;
 				break;
 			default:
 				break;
@@ -86,9 +91,9 @@ public class Keyhole : MonoBehaviour {
 	void OnTriggerExit2D(Collider2D other){
 		if (other.gameObject.tag == "Player"){
 			switch (other.gameObject.name){
-			case "Player1": player1InTrigger = false;
+			case "Player1": player1InTrigger = 0;
 				break;
-			case "Player2": player2InTrigger = false;
+			case "Player2": player2InTrigger = 0;
 				break;
 			default:
 				break;
@@ -98,7 +103,7 @@ public class Keyhole : MonoBehaviour {
 
 	void ActivateTrigger(){
 		if (isTriangleKeyhole || isSquareKeyhole){
-			GetComponent<SpriteRenderer>().color = Color.green;
+			GetComponent<SpriteRenderer>().color = active;
 //			this.light.color = Color.green;
 		}
 		trigger = true;
@@ -106,7 +111,7 @@ public class Keyhole : MonoBehaviour {
 
 	void DeactivateTrigger(){
 		if (isTriangleKeyhole || isSquareKeyhole){
-			GetComponent<SpriteRenderer>().color = Color.red;
+			GetComponent<SpriteRenderer>().color = inactive;
 //			this.light.color = Color.red;
 		}
 		trigger = false;
