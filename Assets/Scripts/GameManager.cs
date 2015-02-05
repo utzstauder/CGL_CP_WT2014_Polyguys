@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake(){
+		StartCoroutine(FadeToClear(1f));
+
 		DontDestroyOnLoad(this.gameObject);
 		endText.gameObject.SetActive(false);
 
@@ -63,8 +65,6 @@ public class GameManager : MonoBehaviour {
 		players = new GameObject[2];
 
 		timer = timerObject.GetComponent<timerScript>();
-
-		StartCoroutine(FadeToClear(.5f));
 	}
 	
 	// Update is called once per frame
@@ -117,6 +117,8 @@ public class GameManager : MonoBehaviour {
 
 #region menu functions
 	public void StartGame(){
+		StopCoroutine(FadeToClear(.5f));
+
 		//disable event system to prevent button presses
 		mainMenuEventSystem.enabled = false;
 
@@ -127,7 +129,6 @@ public class GameManager : MonoBehaviour {
 		StartCoroutine(loadNextLevel());
 
 		timerObject.SetActive(true);
-		timer.ToggleShow();
 	}
 	
 	public void QuitGame(){
@@ -166,10 +167,14 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void RestartLevel(){
+		pauseMenuEventSystem1.enabled = false;
+		pauseMenuEventSystem2.enabled = false;
 		StartCoroutine(ReloadCurrentLevel());
 	}
 
 	public void GoToMainMenu(){
+		pauseMenuEventSystem1.enabled = false;
+		pauseMenuEventSystem2.enabled = false;
 		StartCoroutine(loadMainMenu());
 	}
 #endregion

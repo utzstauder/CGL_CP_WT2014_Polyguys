@@ -24,7 +24,18 @@ public class Keyhole : MonoBehaviour {
 	
 	private Animator anim;
 
-	// Use this for initialization
+	[SerializeField]
+	private AudioClip audioActivate;
+	[SerializeField]
+	private AudioClip audioDeactivate;
+
+	private AudioSource audioSource;
+
+	void Awake(){
+		audioSource = GetComponent<AudioSource>();
+	}
+
+
 	void Start () {
 		if (switchObject) anim = transform.Find ("switchMesh").GetComponent<Animator>();
 //		if (keyhole) light = transform.FindChild ("keyholeLightForeground").GetComponent<Light>();
@@ -41,6 +52,22 @@ public class Keyhole : MonoBehaviour {
 		if (playersInsideTriggerZone){
 			if ((player1InTrigger + player2InTrigger) >= minVerticesNeeded) ActivateTrigger();
 			else DeactivateTrigger();
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D other){
+		if (other.gameObject.tag == "Player" && keyhole){
+			switch(other.gameObject.GetComponent<PlatformerCharacter2D>().currentVertices){
+			case 3:
+				if (isTriangleKeyhole) PlayAudio(true);
+				break;
+			case 4:
+				if (isSquareKeyhole) PlayAudio(true);
+				break;
+			default:
+				DeactivateTrigger();
+				break;
+			}
 		}
 	}
 
@@ -64,6 +91,7 @@ public class Keyhole : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D other){
 		DeactivateTrigger();
+		PlayAudio(trigger);
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
@@ -120,5 +148,19 @@ public class Keyhole : MonoBehaviour {
 	void HitSwitch(){
 		trigger = !trigger;
 		anim.SetBool("trigger", trigger);
+		PlayAudio(trigger);
+	}
+
+	void PlayAudio(bool trigger){
+//		if (!audioSource.isPlaying){
+//			if (trigger){
+//				audioSource.clip = audioActivate;
+//				audioSource.Play();
+//			}
+//			else{
+//				audioSource.clip = audioDeactivate;
+//				audioSource.Play();
+//			}
+//		}
 	}
 }

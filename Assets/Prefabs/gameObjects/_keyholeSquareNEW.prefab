@@ -27,6 +27,7 @@ GameObject:
   - 212: {fileID: 21288358}
   - 61: {fileID: 6188358}
   - 114: {fileID: 11488358}
+  - 82: {fileID: 8276910}
   m_Layer: 10
   m_Name: _keyholeSquareNEW
   m_TagString: Untagged
@@ -70,6 +71,64 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_Size: {x: 1.07000005, y: 1.05999994}
   m_Center: {x: 0, y: 0}
+--- !u!82 &8276910
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 188358}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 1
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!108 &10859916
 Light:
   m_ObjectHideFlags: 1
@@ -121,7 +180,12 @@ MonoBehaviour:
   isSquareKeyhole: 1
   switchObject: 0
   playersInsideTriggerZone: 0
+  minVerticesNeeded: 6
+  active: {r: .101999998, g: .603999972, b: .0790000036, a: 1}
+  inactive: {r: .671000004, g: .211999997, b: .125, a: 1}
   trigger: 0
+  audioActivate: {fileID: 8300000, guid: 2f9b42d392c9c42dca440287aeee3832, type: 3}
+  audioDeactivate: {fileID: 8300000, guid: c59cabba86eb447918458fab45626a08, type: 3}
 --- !u!212 &21288358
 SpriteRenderer:
   m_ObjectHideFlags: 1

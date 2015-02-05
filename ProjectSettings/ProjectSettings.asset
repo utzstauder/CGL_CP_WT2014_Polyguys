@@ -10,7 +10,7 @@ PlayerSettings:
   targetGlesGraphics: 1
   targetResolution: 0
   accelerometerFrequency: 60
-  companyName: CGL
+  companyName: DefaultCompany
   productName: POLYGUYS
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -105,28 +105,13 @@ PlayerSettings:
   AndroidSplashScreenScale: 0
   AndroidKeystoreName: 
   AndroidKeyaliasName: 
-  resolutionDialogBanner: {fileID: 0}
+  resolutionDialogBanner: {fileID: 2800000, guid: 579ad5e78705b47988cf70baa057058e,
+    type: 3}
   m_BuildTargetIcons:
   - m_BuildTarget: 
     m_Icons:
-    - m_Icon: {fileID: 2800000, guid: a840fe614d623475bb8e16f601643509, type: 3}
+    - m_Icon: {fileID: 2800000, guid: b3a6f1d826a7b4e988c07e91d46ce077, type: 3}
       m_Size: 128
-  - m_BuildTarget: Standalone
-    m_Icons:
-    - m_Icon: {fileID: 2800000, guid: a840fe614d623475bb8e16f601643509, type: 3}
-      m_Size: 1024
-    - m_Icon: {fileID: 2800000, guid: a840fe614d623475bb8e16f601643509, type: 3}
-      m_Size: 512
-    - m_Icon: {fileID: 2800000, guid: a840fe614d623475bb8e16f601643509, type: 3}
-      m_Size: 256
-    - m_Icon: {fileID: 2800000, guid: a840fe614d623475bb8e16f601643509, type: 3}
-      m_Size: 128
-    - m_Icon: {fileID: 2800000, guid: a840fe614d623475bb8e16f601643509, type: 3}
-      m_Size: 48
-    - m_Icon: {fileID: 2800000, guid: a840fe614d623475bb8e16f601643509, type: 3}
-      m_Size: 32
-    - m_Icon: {fileID: 2800000, guid: a840fe614d623475bb8e16f601643509, type: 3}
-      m_Size: 16
   m_BuildTargetBatching:
   - m_BuildTarget: Web
     m_StaticBatching: 1
@@ -178,12 +163,12 @@ PlayerSettings:
   flashStrippingLevel: 2
   spritePackerPolicy: 
   scriptingDefineSymbols:
-    1: 
-    2: CROSS_PLATFORM_INPUT
-    4: CROSS_PLATFORM_INPUT
-    7: CROSS_PLATFORM_INPUT
+    1: mainMenu
+    2: mainMenu
+    4: mainMenu
+    7: mainMenu
     15: CROSS_PLATFORM_INPUT
-    16: CROSS_PLATFORM_INPUT
+    16: mainMenu
   metroPackageName: Sample-Assets Project
   metroPackageLogo: 
   metroPackageLogo140: 

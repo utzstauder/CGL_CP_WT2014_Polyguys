@@ -13,6 +13,8 @@ public class PlatformerCharacter2D : MonoBehaviour
 	[Range(0,3)]
 	public int airJumps;
 	private int airJumpsTmp;
+	[SerializeField]
+	private float maxVelocityYJump = 6.5f;
 
 	[SerializeField] LayerMask whatIsGround;			// A mask determining what is ground to the character
 	[SerializeField] LayerMask whatIsOtherPlayer;
@@ -219,7 +221,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 		if (alive && playerHasControl){
 			if ((playerID == 1 && Input.GetButtonDown("p1Shoot"))
 			    || (playerID == 2 && Input.GetButtonDown("p2Shoot")) ) Shoot();
-			else if (grounded && !otherPlayerOnTop && Mathf.Abs(rigidbody2D.velocity.y) < 3.5f){
+			else if (grounded && !otherPlayerOnTop && Mathf.Abs(rigidbody2D.velocity.y) < maxVelocityYJump){
 				if ((playerID == 1 && Input.GetButtonDown("p1Jump"))
 				    || (playerID == 2 && Input.GetButtonDown("p2Jump")) ){
 					// Add a vertical force to the player.
@@ -358,14 +360,14 @@ public class PlatformerCharacter2D : MonoBehaviour
 			if (targetVertices < currentVertices) audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.2f);
 			else audioSource.PlayOneShot(audioClipsChangeShape[targetVertices-3],1.0f);
 		}
-
-		// Deactiveate all particle emitters first
-		for (int i = 0; i < particleObject.Length; i++){
-			if (particleObject[i] != null) particleObject[i].SetActive(false);
-			else Debug.Log(i + " is null");
-		}
-		// Activate corresponding particle emitter
-		if (enableParticles && particleObject[targetVertices-3] != null) particleObject[targetVertices-3].SetActive(true);
+		
+//		// Deactiveate all particle emitters first
+//		for (int i = 0; i < particleObject.Length; i++){
+//			if (particleObject[i] != null) particleObject[i].SetActive(false);
+//			else Debug.Log(i + " is null");
+//		}
+//		// Activate corresponding particle emitter
+//		if (enableParticles && particleObject[targetVertices-3] != null) particleObject[targetVertices-3].SetActive(true);
 
 		// Change color
 		switch(playerID){
@@ -377,6 +379,14 @@ public class PlatformerCharacter2D : MonoBehaviour
 			break;
 		}
 
+		// particle effect on growth
+		if (targetVertices > currentVertices){
+			ParticleSystem littleExplosion = Instantiate(particleEffect, this.transform.position, Quaternion.identity) as ParticleSystem;
+			littleExplosion.startColor = GetPlayerColor();
+			littleExplosion.startSize *= rigidbody2D.mass;
+			littleExplosion.GetComponent<autoDestroy>().triggerDestroy(littleExplosion.startLifetime);
+		}
+		
 		// Set the new vertex count
 		currentVertices = targetVertices;
 	}

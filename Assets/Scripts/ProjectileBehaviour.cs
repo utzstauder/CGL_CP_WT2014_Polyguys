@@ -14,6 +14,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 	public float speed = 25.0f;
 
 	private Sprite[] presetSprites;
+	[SerializeField]
 	private SpriteRenderer spriteRenderer; 
 
 	[SerializeField]
@@ -32,6 +33,10 @@ public class ProjectileBehaviour : MonoBehaviour {
 	[SerializeField]
 	private Light light2;
 	[SerializeField]
+	private Light light3;
+	[SerializeField]
+	private Light light4;
+	[SerializeField]
 	private float maxIntensity;
 	[SerializeField]
 	private float maxRange;
@@ -41,7 +46,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 		//Debug.Log ("projectile instantiated!");
 
 		// Set references
-		spriteRenderer = GetComponent<SpriteRenderer>();
+//		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		// Loading the sprite and audio resources
 		presetSprites = new Sprite[] {	Resources.Load("Sprites/polygons_fill/3_triangle", typeof(Sprite)) as Sprite,
@@ -56,7 +61,10 @@ public class ProjectileBehaviour : MonoBehaviour {
 	}
 
 	void Start(){
-
+		light1.intensity = 0;
+		light2.intensity = 0;
+		light3.intensity = 0;
+		light4.intensity = 0;
 	}
 	
 	// Update is called once per frame
@@ -70,7 +78,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 			progression = 1f - (target.transform.position - this.transform.position).magnitude/(target.transform.position - source.transform.position).magnitude;
 		}
 		rigidbody2D.velocity = direction * speed * 10.0f * Time.deltaTime;
-		particleSystem.transform.position = this.transform.position;
+		particleSystem.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -11f);
 
 		if (source != null && target != null){
 //			progression = 1f - (target.transform.position - this.transform.position).magnitude/(target.transform.position - source.transform.position).magnitude;
@@ -79,9 +87,13 @@ public class ProjectileBehaviour : MonoBehaviour {
 			if (progression <= .5f){
 				light1.intensity = maxIntensity * progression;
 				light2.intensity = maxIntensity * progression;
+				light3.intensity = maxIntensity * progression;
+				light4.intensity = maxIntensity * progression;
 			}else{
 				light1.intensity = maxIntensity * (1f-progression);
 				light2.intensity = maxIntensity * (1f-progression);
+				light3.intensity = maxIntensity * (1f-progression);
+				light4.intensity = maxIntensity * (1f-progression);
 			}
 		}
 	}
@@ -96,7 +108,9 @@ public class ProjectileBehaviour : MonoBehaviour {
 //
 		light1.color = color;
 		light2.color = color;
-
+		light3.color = color;
+		light4.color = color;
+		
 		currentVertices = targetVertices;
 	}
 

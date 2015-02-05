@@ -7,14 +7,14 @@ InputManager:
   m_Axes:
   - serializedVersion: 3
     m_Name: p1Horizontal
-    descriptiveName: 
-    descriptiveNegativeName: 
+    descriptiveName: P1 Right Gamepad
+    descriptiveNegativeName: P1 Left Gamepad
     negativeButton: a
     positiveButton: d
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
-    dead: .00499999989
+    dead: .200000003
     sensitivity: 4
     snap: 1
     invert: 0
@@ -23,14 +23,14 @@ InputManager:
     joyNum: 1
   - serializedVersion: 3
     m_Name: p1Horizontal
-    descriptiveName: 
-    descriptiveNegativeName: 
+    descriptiveName: P1 Right Keyboard
+    descriptiveNegativeName: P1 Left Keyboard
     negativeButton: a
     positiveButton: d
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
-    dead: .00499999989
+    dead: .200000003
     sensitivity: 4
     snap: 1
     invert: 0
@@ -46,7 +46,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
-    dead: .00499999989
+    dead: .200000003
     sensitivity: 4
     snap: 1
     invert: 0
@@ -62,7 +62,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 3
-    dead: .00499999989
+    dead: .200000003
     sensitivity: 4
     snap: 1
     invert: 0
@@ -71,8 +71,8 @@ InputManager:
     joyNum: 2
   - serializedVersion: 3
     m_Name: p2Horizontal
-    descriptiveName: 
-    descriptiveNegativeName: 
+    descriptiveName: P2 Right Gamepad
+    descriptiveNegativeName: P2 Left Gamepad
     negativeButton: left
     positiveButton: right
     altNegativeButton: 
@@ -87,8 +87,8 @@ InputManager:
     joyNum: 2
   - serializedVersion: 3
     m_Name: p2Horizontal
-    descriptiveName: 
-    descriptiveNegativeName: 
+    descriptiveName: P2 Right Keyboard
+    descriptiveNegativeName: P2 Left Keyboard
     negativeButton: left
     positiveButton: right
     altNegativeButton: 
@@ -103,7 +103,7 @@ InputManager:
     joyNum: 2
   - serializedVersion: 3
     m_Name: p1Jump
-    descriptiveName: 
+    descriptiveName: P1 Jump / Confirm
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick 1 button 1
@@ -119,7 +119,7 @@ InputManager:
     joyNum: 1
   - serializedVersion: 3
     m_Name: p2Jump
-    descriptiveName: 
+    descriptiveName: P2 Jump / Confirm
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick 2 button 1
@@ -135,7 +135,7 @@ InputManager:
     joyNum: 2
   - serializedVersion: 3
     m_Name: p1Shoot
-    descriptiveName: 
+    descriptiveName: P1 Shoot
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick 1 button 2
@@ -151,7 +151,7 @@ InputManager:
     joyNum: 1
   - serializedVersion: 3
     m_Name: p2Shoot
-    descriptiveName: 
+    descriptiveName: P2 Shoot
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick 2 button 2
@@ -167,7 +167,7 @@ InputManager:
     joyNum: 2
   - serializedVersion: 3
     m_Name: p1Pause
-    descriptiveName: 
+    descriptiveName: P1 Pause
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick 1 button 9
@@ -183,7 +183,7 @@ InputManager:
     joyNum: 2
   - serializedVersion: 3
     m_Name: p2Pause
-    descriptiveName: 
+    descriptiveName: P2 Pause
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick 2 button 9

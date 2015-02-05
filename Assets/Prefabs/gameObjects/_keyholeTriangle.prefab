@@ -220,8 +220,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keyhole: 1
+  isTriangleKeyhole: 0
+  isSquareKeyhole: 0
   switchObject: 0
+  playersInsideTriggerZone: 0
+  minVerticesNeeded: 6
+  active: {r: .101999998, g: .603999972, b: .0790000036, a: 1}
+  inactive: {r: .671000004, g: .211999997, b: .125, a: 1}
   trigger: 0
+  audioActivate: {fileID: 0}
+  audioDeactivate: {fileID: 0}
 --- !u!114 &11468798
 MonoBehaviour:
   m_ObjectHideFlags: 1

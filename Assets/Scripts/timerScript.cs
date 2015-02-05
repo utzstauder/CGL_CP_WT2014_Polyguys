@@ -12,6 +12,7 @@ public class timerScript : MonoBehaviour {
 	void Start () {
 		text = GetComponent<Text>();
 		running = false;
+		ToggleShow();
 		StartTimer();
 	}
 	
