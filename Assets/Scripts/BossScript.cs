@@ -169,7 +169,7 @@ public class BossScript : MonoBehaviour
 //		spriteRenderer.sprite = presetSprites[targetVertices-3];
 		DeactivateAllMeshes();
 		ActivateMesh(targetVertices);
-		rigidbody2D.mass = presetMass[targetVertices-3];
+		GetComponent<Rigidbody2D>().mass = presetMass[targetVertices-3];
 
 		// Deactivate all colliders first
 		for (int i = 0; i < polygonCollider2D.Length; i++){

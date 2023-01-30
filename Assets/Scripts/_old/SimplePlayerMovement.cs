@@ -32,14 +32,8 @@ public class SimplePlayerMovement : MonoBehaviour {
 
 	void Update()
 	{
-		if (networkView.isMine){
-			InputMovement();
-			InputSpriteChange();
-			//InputColorChange();
-		}else{
-			SyncedMovement();
-		}
-		rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity, maxSpeed);
+
+		GetComponent<Rigidbody2D>().velocity = Vector2.ClampMagnitude(GetComponent<Rigidbody2D>().velocity, maxSpeed);
 	}
 
 	private void InputColorChange(){
@@ -50,44 +44,44 @@ public class SimplePlayerMovement : MonoBehaviour {
 
 	private void InputSpriteChange(){
 		if (Input.GetKeyDown(KeyCode.F)){
-			ChangeSpriteTo((int)Random.Range(0, sprites.Length));
+			ChangeSpriteTo(Random.Range(0, sprites.Length));
 		}
 	}
 
 	void InputMovement()
 	{
 		if (Input.GetKey(KeyCode.W)){
-			rigidbody2D.AddForce(new Vector2(0,speed * Time.deltaTime));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(0,speed * Time.deltaTime));
 		}
 
 		if (Input.GetKey(KeyCode.S)){
-			rigidbody2D.AddForce(new Vector2(0,-speed * Time.deltaTime));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(0,-speed * Time.deltaTime));
 
 		}
 		
 		if (Input.GetKey(KeyCode.D)){
-			rigidbody2D.AddForce(new Vector2(speed * Time.deltaTime,0));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(speed * Time.deltaTime,0));
 		}
 		
 		if (Input.GetKey(KeyCode.A)){
-			rigidbody2D.AddForce(new Vector2(-speed * Time.deltaTime,0));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(-speed * Time.deltaTime,0));
 		}
 	}
 
 	void SyncedMovement(){
 		syncTime += Time.deltaTime;
-		rigidbody2D.position = Vector2.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay);
+		GetComponent<Rigidbody2D>().position = Vector2.Lerp(syncStartPosition, syncEndPosition, syncTime / syncDelay);
 	}
 
-	void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info){
+	/*void OnSerializeNetworkView(BitStream stream, NetworkMessageInfo info){
 		Vector3 syncPosition = Vector3.zero;
 		Vector3 syncVelocity = Vector3.zero;
 
 		if (stream.isWriting){
-			syncPosition = rigidbody2D.position;
+			syncPosition = GetComponent<Rigidbody2D>().position;
 			stream.Serialize(ref syncPosition);
 
-			syncVelocity = rigidbody2D.velocity;
+			syncVelocity = GetComponent<Rigidbody2D>().velocity;
 			stream.Serialize(ref syncVelocity);
 		}else{
 			stream.Serialize(ref syncPosition);
@@ -98,24 +92,18 @@ public class SimplePlayerMovement : MonoBehaviour {
 			lastSynchronizationTime = Time.time;
 
 			syncEndPosition = syncPosition + syncVelocity * syncDelay;
-			syncStartPosition = rigidbody2D.position;
+			syncStartPosition = GetComponent<Rigidbody2D>().position;
 		}
-	}
+	}*/
 
-	[RPC] void ChangeColorTo(Vector3 color){
+	void ChangeColorTo(Vector3 color){
 		spriteRenderer.color = new Color(color.x, color.y, color.z, 1.0f);
-
-		if (networkView.isMine){
-			networkView.RPC("ChangeColorTo", RPCMode.OthersBuffered, color);
-		}
+		
 	}
 
-	[RPC] void ChangeSpriteTo(int spriteIndex){
+	void ChangeSpriteTo(int spriteIndex){
 		spriteRenderer.sprite = sprites[spriteIndex];
-
-		if (networkView.isMine){
-			networkView.RPC("ChangeSpriteTo", RPCMode.OthersBuffered, spriteIndex);
-		}
+		
 	}
 
 	void OnCollisionEnter2D(Collision2D otherObject){

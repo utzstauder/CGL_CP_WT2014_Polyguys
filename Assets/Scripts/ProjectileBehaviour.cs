@@ -77,7 +77,7 @@ public class ProjectileBehaviour : MonoBehaviour {
 			direction = (target.transform.position - transform.position).normalized;
 			progression = 1f - (target.transform.position - this.transform.position).magnitude/(target.transform.position - source.transform.position).magnitude;
 		}
-		rigidbody2D.velocity = direction * speed * 10.0f * Time.deltaTime;
+		GetComponent<Rigidbody2D>().velocity = direction * speed * 10.0f * Time.deltaTime;
 		particleSystem.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -11f);
 
 		if (source != null && target != null){

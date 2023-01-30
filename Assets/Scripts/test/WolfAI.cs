@@ -32,13 +32,13 @@ public class WolfAI : MonoBehaviour {
 			//anim.ResetTrigger("Attack");
 			currentPos = this.transform.position;
 			destPos = player.transform.position;
-			currentVel = Mathf.Abs(this.rigidbody2D.velocity.x);
+			currentVel = Mathf.Abs(this.GetComponent<Rigidbody2D>().velocity.x);
 			timeLeft -= Time.deltaTime;
 			//Debug.Log(timeLeft);
 			
 			if (currentPos.x < destPos.x-distanceToPlayer) {
 				if (currentVel < maxSpeed) {
-					this.rigidbody2D.AddForce(new Vector2(velocity,0));
+					this.GetComponent<Rigidbody2D>().AddForce(new Vector2(velocity,0));
 				}
 				if (!facingRight) {
 					Debug.Log ("FLIPr");
@@ -48,7 +48,7 @@ public class WolfAI : MonoBehaviour {
 			}
 			else if (currentPos.x > destPos.x+distanceToPlayer) {
 				if (currentVel < maxSpeed) {
-					this.rigidbody2D.AddForce(new Vector2(velocity*-1,0));
+					this.GetComponent<Rigidbody2D>().AddForce(new Vector2(velocity*-1,0));
 				}
 				if (facingRight) {
 					Debug.Log ("FLIPl");
