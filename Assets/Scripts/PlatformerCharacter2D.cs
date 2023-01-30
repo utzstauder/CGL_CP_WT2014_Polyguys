@@ -221,11 +221,11 @@ public class PlatformerCharacter2D : MonoBehaviour
 		if (alive && playerHasControl){
 			if ((playerID == 1 && Input.GetButtonDown("p1Shoot"))
 			    || (playerID == 2 && Input.GetButtonDown("p2Shoot")) ) Shoot();
-			else if (grounded && !otherPlayerOnTop && Mathf.Abs(rigidbody2D.velocity.y) < maxVelocityYJump){
+			else if (grounded && !otherPlayerOnTop && Mathf.Abs(GetComponent<Rigidbody2D>().velocity.y) < maxVelocityYJump){
 				if ((playerID == 1 && Input.GetButtonDown("p1Jump"))
 				    || (playerID == 2 && Input.GetButtonDown("p2Jump")) ){
 					// Add a vertical force to the player.
-					rigidbody2D.AddForce(new Vector2(0f, jumpForce));
+					GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, jumpForce));
 					// Play audio
 					audioSource.PlayOneShot(audioClipsJump[currentVertices-3],0.33f);
 				} 
@@ -245,7 +245,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 			float move = 0;
 			if (playerID == 1) move = Input.GetAxis ("p1Horizontal");
 			if (playerID == 2) move = Input.GetAxis ("p2Horizontal");
-			rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+			GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 		}
 		grounded = false;
 	}
@@ -257,7 +257,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 			if(grounded || aircontrol)
 			{
 				// Move the character
-				rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
+				GetComponent<Rigidbody2D>().velocity = new Vector2(move * maxSpeed, GetComponent<Rigidbody2D>().velocity.y);
 			}
 
 			//TODO: old jump
@@ -334,7 +334,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 //		spriteRenderer.sprite = presetSprites[targetVertices-3];
 		DeactivateAllMeshes();
 		ActivateMesh(targetVertices);
-		rigidbody2D.mass = presetMass[targetVertices-3];
+		GetComponent<Rigidbody2D>().mass = presetMass[targetVertices-3];
 		groundedRadius = presetGroundedRadius[targetVertices-3];
 		jumpForce = presetJumpForce[targetVertices-3];
 
@@ -383,7 +383,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 		if (targetVertices > currentVertices){
 			ParticleSystem littleExplosion = Instantiate(particleEffect, this.transform.position, Quaternion.identity) as ParticleSystem;
 			littleExplosion.startColor = GetPlayerColor();
-			littleExplosion.startSize *= rigidbody2D.mass;
+			littleExplosion.startSize *= GetComponent<Rigidbody2D>().mass;
 			littleExplosion.GetComponent<autoDestroy>().triggerDestroy(littleExplosion.startLifetime);
 		}
 		
@@ -491,7 +491,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 		alive = false;
 //		spriteRenderer.enabled = false;
 		DeactivateAllMeshes();
-		this.rigidbody2D.isKinematic = true;
+		this.GetComponent<Rigidbody2D>().isKinematic = true;
 		particleObject[currentVertices-3].SetActive(false);
 		DeactivateCollider();
 		audioSource.PlayOneShot(audioClipDeath,.66f);
@@ -520,7 +520,7 @@ public class PlatformerCharacter2D : MonoBehaviour
 //		spriteRenderer.enabled = true;
 		ActivateMesh(currentVertices);
 		if (enableParticles) particleObject[currentVertices-3].SetActive(true);
-		this.rigidbody2D.isKinematic = false;
+		this.GetComponent<Rigidbody2D>().isKinematic = false;
 		ActivateCollider();
 		alive = true;
 	}

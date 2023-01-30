@@ -17,13 +17,13 @@ public class movingPlatform : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
-		this.rigidbody2D.MovePosition(target);
+		GetComponent<Rigidbody2D>().MovePosition(target);
 	}
 
 	void OnCollisionStay2D(Collision2D other){
 		if (other.gameObject.tag == "Player"){
 			//other.gameObject.rigidbody2D.MovePosition(target);
-			other.gameObject.rigidbody2D.AddForce(this.rigidbody2D.velocity*100f);
+			other.gameObject.GetComponent<Rigidbody2D>().AddForce(this.GetComponent<Rigidbody2D>().velocity*100f);
 		}
 	}
 

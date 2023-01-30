@@ -65,7 +65,7 @@ public class CameraSystem : MonoBehaviour {
 		UpdateColliders(newZoom);
 
 		//set new zoom
-		this.camera.orthographicSize = newZoom;
+		Camera.main.orthographicSize = newZoom;
 
 		//set new position
 		this.transform.position = new Vector3(newX, newY, newZ + zOffset);
@@ -77,8 +77,8 @@ public class CameraSystem : MonoBehaviour {
 	private void UpdateColliders(float zoom){
 		limitCollider[0].size = new Vector2(1f, zoom * 2f);
 		limitCollider[1].size = new Vector2(1f, zoom * 2f);
-		limitCollider[0].center = new Vector2 (zoom * camera.aspect + limitCollider[1].size.x/2, 0);
-		limitCollider[1].center = new Vector2 (-zoom * camera.aspect - limitCollider[1].size.x/2, 0);
+		limitCollider[0].offset = new Vector2 (zoom * Camera.main.aspect + limitCollider[1].size.x/2, 0);
+		limitCollider[1].offset = new Vector2 (-zoom * Camera.main.aspect - limitCollider[1].size.x/2, 0);
 	}
 	#endregion
 

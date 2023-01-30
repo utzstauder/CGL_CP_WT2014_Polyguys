@@ -32,7 +32,7 @@ public class TestPlayerMovement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		groundCheck = transform.FindChild("GroundCheck");
+		groundCheck = transform.Find("GroundCheck");
 		spriteRenderer = GetComponent<SpriteRenderer>();
 
 		sprites = new Sprite[]{	Resources.Load("Sprites/polygons_pixel/3_triangle", typeof(Sprite)) as Sprite,
@@ -63,8 +63,8 @@ public class TestPlayerMovement : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.D)){
 			if (grounded){
 				// move right
-				rigidbody2D.AddForce(new Vector2(horizontalSpeed * vertices * 10 * Time.deltaTime, 0));
-				rigidbody2D.AddTorque(-horizontalSpeed * vertices * 10 * Time.deltaTime);
+				GetComponent<Rigidbody2D>().AddForce(new Vector2(horizontalSpeed * vertices * 10 * Time.deltaTime, 0));
+				GetComponent<Rigidbody2D>().AddTorque(-horizontalSpeed * vertices * 10 * Time.deltaTime);
 			}else 
 			{
 				//rigidbody2D.AddForce(new Vector2(horizontalSpeed * vertices * 10 * Time.deltaTime, 0));
@@ -73,15 +73,15 @@ public class TestPlayerMovement : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.A)){
 			if (grounded){
 				// move left
-				rigidbody2D.AddForce(new Vector2(-horizontalSpeed * vertices * 10 * Time.deltaTime, 0));
-				rigidbody2D.AddTorque(horizontalSpeed * vertices * 10 * Time.deltaTime);
+				GetComponent<Rigidbody2D>().AddForce(new Vector2(-horizontalSpeed * vertices * 10 * Time.deltaTime, 0));
+				GetComponent<Rigidbody2D>().AddTorque(horizontalSpeed * vertices * 10 * Time.deltaTime);
 			}else{
 				//rigidbody2D.AddForce(new Vector2(-horizontalSpeed * vertices * 10 * Time.deltaTime, 0));
 			}
 		}
 		if (Input.GetKeyDown(KeyCode.W) && grounded){
 			// jump
-			rigidbody2D.AddForce(new Vector2(0,jumpForce * vertices * vertices * 20 * Time.deltaTime));
+			GetComponent<Rigidbody2D>().AddForce(new Vector2(0,jumpForce * vertices * vertices * 20 * Time.deltaTime));
 		}
 
 	}
@@ -107,7 +107,7 @@ public class TestPlayerMovement : MonoBehaviour {
 		jumpForce = _jumpForce[sides-3];
 		groundCheck.transform.localPosition = _groundCheckPosition[sides-3];
 		groundedRadius = _groundedRadius[sides-3];
-		rigidbody2D.mass = _mass[sides-3];
+		GetComponent<Rigidbody2D>().mass = _mass[sides-3];
 		vertices = sides;
 	}
 }

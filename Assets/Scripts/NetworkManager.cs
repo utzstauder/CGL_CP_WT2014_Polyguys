@@ -9,7 +9,7 @@ public class NetworkManager : MonoBehaviour {
 	private const string typeName = "20141216_CGL_CP_WT2014_Polyguys_v01";			// unique(!) game description
 	private const string gameName = "Test Server #";									// room name
 
-	private HostData[] hostList;													// list of open game servers
+	//private HostData[] hostList;													// list of open game servers
 
 	public GameObject playerPrefab;													// the player object
 	public Transform spawnPointP1;													// the spawning points
@@ -22,7 +22,7 @@ public class NetworkManager : MonoBehaviour {
 		//MasterServer.ipAddress = "127.0.0.1";
 
 		spawnPoints = new Transform[] {spawnPointP1, spawnPointP2};
-		RefreshHostList();
+		//RefreshHostList();
 	}
 	
 	// Update is called once per frame
@@ -30,25 +30,28 @@ public class NetworkManager : MonoBehaviour {
 		//PrintNames();
 	}
 
-	void PrintNames(ArrayList viewIDs) {
+	/*void PrintNames(ArrayList viewIDs) {
 		foreach (NetworkViewID ID in viewIDs) {
 			Debug.Log("Finding " + ID);
 			NetworkView view = NetworkView.Find(ID);
 			Debug.Log(view.observed.name);
 		}
-	}
+	}*/
 	
+	/*
 	private void StartServer(int maxPlayers){
 		// initialize a game server on port 25000 with a maximum of 2 players and register it with the unity master server
 		Network.InitializeServer(maxPlayers, 25000, !Network.HavePublicAddress());
 		MasterServer.RegisterHost(typeName, gameName + hostList.Length);
-	}
+	}*/
 
+		/*
 		void OnServerInitialized(){
 			Debug.Log("Server initialized!");
 			SpawnPlayer(1);
-		}
+		}*/
 
+	/*
 	private void RefreshHostList(){
 		MasterServer.RequestHostList(typeName);
 	}
@@ -76,9 +79,10 @@ public class NetworkManager : MonoBehaviour {
 			Debug.Log("Cleaning up after the player. That dirty little shit!");
 			Network.RemoveRPCs(player);
 			Network.DestroyPlayerObjects(player);
-		}
+		}*/
 
 
+	/*
 	// TODO: implement NEW UI!
 	void OnGUI(){
 		if (!Network.isClient && !Network.isServer){
@@ -120,5 +124,5 @@ public class NetworkManager : MonoBehaviour {
 			if (Network.isServer) GUILayout.Label("You are the server.");
 			else if (Network.isClient) GUILayout.Label("You are the client.");
 		}
-	}
+	}*/
 }

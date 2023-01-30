@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviour {
 				}
 		foreach (GameObject player in players){
 			player.GetComponent<PlatformerCharacter2D>().playerHasControl = false;
-			player.rigidbody2D.isKinematic = true;
+			player.GetComponent<Rigidbody2D>().isKinematic = true;
 		}
 		timer.PauseTimer();
 		state = State.paused;
@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour {
 
 		foreach (GameObject player in players){
 			player.GetComponent<PlatformerCharacter2D>().playerHasControl = true;
-			player.rigidbody2D.isKinematic = false;
+			player.GetComponent<Rigidbody2D>().isKinematic = false;
 		}
 		timer.ResumeTimer();
 		state = State.playing;

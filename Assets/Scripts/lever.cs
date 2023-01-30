@@ -47,7 +47,7 @@ public class lever : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		//Debug.Log("Collision with " + other.gameObject.name);
 		if (other.gameObject.tag == "Projectile"){
-			collisionAngle = other.gameObject.rigidbody2D.velocity;
+			collisionAngle = other.gameObject.GetComponent<Rigidbody2D>().velocity;
 			hit = true;
 		}
 	}

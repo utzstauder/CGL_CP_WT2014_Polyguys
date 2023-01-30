@@ -57,7 +57,7 @@ public class TargetFieldOfView : AbstractTargetFollower {
 		bool initBounds = false;
 		foreach(Renderer r in renderers)
 		{
-			if (!((r is TrailRenderer) || (r is ParticleRenderer) || (r is ParticleSystemRenderer)))
+			if (!((r is TrailRenderer) /*|| (r is ParticleRenderer)*/ || (r is ParticleSystemRenderer)))
 			{
 				if (!initBounds)
 				{
